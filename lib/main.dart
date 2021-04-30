@@ -15,7 +15,7 @@ void main() {
         primaryColor: KprimaryColor,
         accentColor: KaccentColor,
         scaffoldBackgroundColor: KaccentColor,
-        fontFamily: 'Cairo',
+        fontFamily: 'Cairo', 
       ),
     ),
   );

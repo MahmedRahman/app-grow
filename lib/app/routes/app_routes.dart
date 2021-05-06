@@ -14,6 +14,8 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const AUTH_FORGET = _Paths.AUTH_FORGET;
   static const SETTINGS = _Paths.SETTINGS;
+  static const YOUTUBE_CHANNELS = _Paths.YOUTUBE_CHANNELS;
+  static const YOUTUBE_CHANNEL_VEDIO = _Paths.YOUTUBE_CHANNEL_VEDIO;
 }
 
 abstract class _Paths {
@@ -29,4 +31,6 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const AUTH_FORGET = '/forget';
   static const SETTINGS = '/settings';
+  static const YOUTUBE_CHANNELS = '/channels';
+  static const YOUTUBE_CHANNEL_VEDIO = '/channel-vedio';
 }

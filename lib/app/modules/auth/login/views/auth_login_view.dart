@@ -112,7 +112,9 @@ class AuthLoginView extends GetView<AuthLoginController> {
               width: Get.width,
               height: 50,
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  
+                },
                 icon: Image.asset('images/gmail_icon.png'),
                 label: Text(
                   'Login with Gmail',

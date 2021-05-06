@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grow/app/data/app_constand.dart';
 import 'package:grow/app/modules/package/views/package_view.dart';
+import 'package:grow/app/modules/youtube/channels/views/youtube_channels_view.dart';
 import 'package:grow/app/routes/app_pages.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -14,7 +16,7 @@ class HomeView extends GetView<HomeController> {
     'images/facebook_baner.png',
   ];
 
-    List<String> ServicesLogo = [
+  List<String> ServicesLogo = [
     'images/yt.png',
     'images/inst.png',
     'images/fb.png',
@@ -30,6 +32,12 @@ class HomeView extends GetView<HomeController> {
     'Buy YouTube Watch Hours',
   ];
 
+  List<String> youtube_earn = [
+    'View',
+    'Subscribe',
+    'Likes',
+  ];
+
   List<String> instagram = [
     'Buy Followers On Instagram',
     'Buy Instagram Views',
@@ -43,11 +51,18 @@ class HomeView extends GetView<HomeController> {
     'Buy Facebook 5 Star Ratings',
   ];
 
+  static var selectIndex = 0.obs;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('G R O W'),
+        title: Text(
+          'G R O W',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -58,6 +73,21 @@ class HomeView extends GetView<HomeController> {
               width: Get.width,
               child: Image.asset('images/baner.png'),
             ),
+            Text(
+              'What do you need most ?',
+              textAlign: TextAlign.left,
+              style: styleTextTitle.copyWith(fontSize: 16),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  NeedBnt('images/trend.svg', 'Account Grow', 0),
+                  NeedBnt('images/money.svg', 'Earn Money', 1),
+                ],
+              ),
+            ),
             SizedBox(
               width: Get.width,
               child: Text(
@@ -66,28 +96,41 @@ class HomeView extends GetView<HomeController> {
                 style: styleTextTitle.copyWith(fontSize: 16),
               ),
             ),
-            SocialServices(
-              context,
-              ServicesBaner[0],
-              youtube,
-              ServicesLogo[0]
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            SocialServices(
-              context,
-              ServicesBaner[1],
-              instagram,       ServicesLogo[1]
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            SocialServices(
-              context,
-              ServicesBaner[2],
-              facebook,       ServicesLogo[2]
-            ),
+            Obx(() {
+              return selectIndex.value == 0
+                  ? Column(
+                      children: [
+                        SocialServices(context, ServicesBaner[0], youtube,
+                            ServicesLogo[0]),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SocialServices(context, ServicesBaner[1], instagram,
+                            ServicesLogo[1]),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SocialServices(context, ServicesBaner[2], facebook,
+                            ServicesLogo[2]),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        SocialServices(context, ServicesBaner[0], youtube_earn,
+                            ServicesLogo[0]),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SocialServices(context, ServicesBaner[2], instagram,
+                            ServicesLogo[1]),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SocialServices(context, ServicesBaner[1], facebook,
+                            ServicesLogo[2]),
+                      ],
+                    );
+            }),
             Features(),
           ],
         ),
@@ -95,10 +138,53 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  Widget NeedBnt(String bntImage, String bntLabel, int index) {
+    return Obx(
+      () {
+        return InkWell(
+          onTap: () {
+            selectIndex.value = index;
+          },
+          child: Container(
+            decoration: selectIndex.value == index
+                ? BoxDecoration(
+                    color: KprimaryColor,
+                    borderRadius: BorderRadius.circular(15),
+                  )
+                : BoxDecoration(),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  SvgPicture.asset(
+                    bntImage,
+                    color: selectIndex.value == index
+                        ? Colors.white
+                        : KprimaryColor,
+                  ),
+                  Text(
+                    bntLabel,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: selectIndex.value == index
+                          ? Colors.white
+                          : KprimaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Container SocialServices(
     BuildContext context,
     String SocialServicesBaner,
-    List<String> ServicesList,String SocialServicesLogo,
+    List<String> ServicesList,
+    String SocialServicesLogo,
   ) {
     return Container(
       color: KprimaryColor.withOpacity(.6),
@@ -125,12 +211,21 @@ class HomeView extends GetView<HomeController> {
                 children: List.generate(ServicesList.length, (index) {
               return ListTile(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                        builder: (BuildContext context) => new PackageView(),
-                      ),
-                    );
+                    HomeView.selectIndex.value == 1
+                        ? Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  new YoutubeChannelsView(),
+                            ),
+                          )
+                        : Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  new PackageView(),
+                            ),
+                          );
                   },
                   title: Text(ServicesList.elementAt(index).toString()),
                   leading: Image.asset(SocialServicesLogo));
@@ -148,8 +243,8 @@ class HomeView extends GetView<HomeController> {
           width: Get.width,
           child: Text(
             'Unique Features',
-            style: styleTextSubTitle,
             textAlign: TextAlign.left,
+            style: styleTextTitle.copyWith(fontSize: 16),
           ),
         ),
         SizedBox(

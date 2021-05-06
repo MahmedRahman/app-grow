@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const KprimaryColor = Color(0xff59A677);
+const KprimaryColor = Color(0xffCD9F41);
 const KaccentColor = Color(0xffF2F2F2);
-
+const Kyoutube = "AIzaSyC8ph0Arqdy0u0I5kEqV44sXFPUSM7iOb0";
 
 TextStyle styleInkWell = TextStyle(
   color: KprimaryColor,

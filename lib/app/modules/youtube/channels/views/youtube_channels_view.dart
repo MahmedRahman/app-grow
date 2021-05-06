@@ -39,13 +39,13 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                     (index) {
                       return InkWell(
                         onTap: () {
-                          /*
+                          
                           Get.toNamed(
                             Routes.YOUTUBE_CHANNEL_VEDIO,
                             arguments: [
                               ChannelsList.elementAt(index).channelId
                             ],
-                          );*/
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),

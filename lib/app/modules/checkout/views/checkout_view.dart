@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grow/app/data/app_constand.dart';
 import 'package:grow/app/modules/home/views/home_view.dart';
+import 'package:grow/app/modules/package/model/package_model.dart';
 
 import '../controllers/checkout_controller.dart';
 
 class CheckoutView extends GetView<CheckoutController> {
+  Package package;
+  CheckoutView(this.package);
+  CheckoutController controller = Get.put(CheckoutController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,7 +114,7 @@ class CheckoutView extends GetView<CheckoutController> {
                       height: 5,
                     ),
                     Text(
-                      '250 View',
+                      '${package.subscribers} View',
                       style: styleTextPackage.copyWith(fontSize: 16),
                     ),
                     Padding(
@@ -119,7 +123,7 @@ class CheckoutView extends GetView<CheckoutController> {
                         width: Get.width,
                         color: Colors.white,
                         child: Text(
-                          '70 L.E',
+                          '${package.price} L.E',
                           style: styleTextPackage.copyWith(
                               color: KprimaryColor, fontSize: 20),
                           textAlign: TextAlign.center,
@@ -127,61 +131,31 @@ class CheckoutView extends GetView<CheckoutController> {
                       ),
                     ),
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.done,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Delivers Within 48 Hours',
-                              style: styleTextPackage,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.done,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Real users',
-                              style: styleTextPackage,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.done,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Profile Must Be Public',
-                              style: styleTextPackage,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: List.generate(
+                          package.features.length,
+                          (index) => Row(
+                            children: [
+                              Icon(
+                                Icons.done,
+                                color: Colors.white,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                '${package.features.elementAt(index)}',
+                                style: styleTextPackage,
+                              ),
+                            ],
+                          ),
+                        )),
                     SizedBox(
                       height: 10,
                     ),
                     Text(
-                      'Totall : 95 L.E',
+                      'Totall : ${package.price} L.E',
                       style: styleTextPackage.copyWith(fontSize: 16),
                     )
                   ],
@@ -202,12 +176,7 @@ class CheckoutView extends GetView<CheckoutController> {
             ),
             ElevatedButton(
               onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                  context,
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) => new HomeView(),
-                  ),(route) => false
-                );
+                controller.setPackageSubscribe(package.id.toString());
               },
               child: Text('Payment'),
               style: ElevatedButton.styleFrom(primary: KprimaryColor),

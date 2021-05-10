@@ -15,9 +15,27 @@ class WebServices extends APIManger {
   }
 
   Future<ResponsModel> setChannelSubscribe(String channelID) async {
+    ResponsModel response =
+        await repPost('channel_subscribe/$channelID', showLoading: true);
+    return response;
+  }
+
+  Future<ResponsModel> getShowPakcages() async {
+    ResponsModel response = await repPost('packages');
+    return response;
+  }
+
+  Future<ResponsModel> getMyPackages() async {
+    ResponsModel response = await repPost('my_packages');
+    return response;
+  }
+
+  Future<ResponsModel> setPackageSubscribe(String Packagid) async {
     ResponsModel response = await repPost(
-      'channel_subscribe/$channelID',
-      showLoading: true
+      'package_subscribe',
+      body: {
+        'package': Packagid,
+      },
     );
     return response;
   }

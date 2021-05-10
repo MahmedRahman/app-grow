@@ -31,6 +31,7 @@ class AuthSplashView extends GetView<AuthSplashController> {
                 width: Get.width,
                 height: 50,
                 child: ElevatedButton(
+                  
                   onPressed: () {
                     Get.toNamed(Routes.AUTH_SIGNUP);
                   },

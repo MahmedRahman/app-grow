@@ -12,30 +12,23 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   List<String> ServicesBaner = [
     'images/youtube_baner.png',
-    'images/instagram_banner.png',
-    'images/facebook_baner.png',
+
   ];
 
   List<String> ServicesLogo = [
     'images/yt.png',
-    'images/inst.png',
-    'images/fb.png',
+
   ];
 
   List<String> youtube = [
     'Buy YouTube Subscribers',
-    'Buy YouTube Views',
-    'Buy YouTube Likes',
-    'Buy YouTube Dislikes',
-    'Buy YouTube Comments',
-    'Buy YouTube Shares',
-    'Buy YouTube Watch Hours',
+
   ];
 
   List<String> youtube_earn = [
-    'View',
+
     'Subscribe',
-    'Likes',
+
   ];
 
   List<String> instagram = [
@@ -105,13 +98,11 @@ class HomeView extends GetView<HomeController> {
                         SizedBox(
                           height: 10,
                         ),
-                        SocialServices(context, ServicesBaner[1], instagram,
-                            ServicesLogo[1]),
+                     
                         SizedBox(
                           height: 10,
                         ),
-                        SocialServices(context, ServicesBaner[2], facebook,
-                            ServicesLogo[2]),
+                       
                       ],
                     )
                   : Column(
@@ -121,13 +112,11 @@ class HomeView extends GetView<HomeController> {
                         SizedBox(
                           height: 10,
                         ),
-                        SocialServices(context, ServicesBaner[2], instagram,
-                            ServicesLogo[1]),
+                      
                         SizedBox(
                           height: 10,
                         ),
-                        SocialServices(context, ServicesBaner[1], facebook,
-                            ServicesLogo[2]),
+                      
                       ],
                     );
             }),

@@ -3,38 +3,51 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grow/app/data/app_constand.dart';
 import 'package:grow/app/modules/checkout/views/checkout_view.dart';
+import 'package:grow/app/modules/package/model/package_model.dart';
 import 'package:grow/app/routes/app_pages.dart';
 
 import '../controllers/package_controller.dart';
 
 class PackageView extends GetView<PackageController> {
+  PackageController controller = Get.put(PackageController());
+
+
+
   @override
   Widget build(BuildContext context) {
+    controller.getPackage();
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Views Packages'),
-          centerTitle: true,
-        ),
-        body: GridView.count(
-          childAspectRatio: 1 / 1.5,
-          crossAxisCount: 2,
-          children: [
-            Package(),
-            Package(),
-            Package(),
-            Package(),
-          ],
-        ));
+      appBar: AppBar(
+        title: Text('Views Packages'),
+        centerTitle: true,
+      ),
+      body: GetX<PackageController>(
+          //init:,
+          builder: (controller) {
+        return FutureBuilder(
+            future: controller.pakcageslList.value,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                List<Package> PackageLit = snapshot.data;
+                return GridView.count(
+                  childAspectRatio: 1 / 1.5,
+                  crossAxisCount: 2,
+                  children: List.generate(
+                    PackageLit.length,
+                    (index) => packageItem(
+                      context,
+                      PackageLit.elementAt(index),
+                    ),
+                  ),
+                );
+              }
+              return CircularProgressIndicator();
+            });
+      }),
+    );
   }
-}
 
-class Package extends StatelessWidget {
-  const Package({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
+  Widget packageItem(BuildContext context, Package package) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -46,7 +59,7 @@ class Package extends StatelessWidget {
               height: 5,
             ),
             Text(
-              '250 View',
+              '${package.subscribers} View',
               style: styleTextPackage.copyWith(fontSize: 16),
             ),
             Padding(
@@ -55,7 +68,7 @@ class Package extends StatelessWidget {
                 width: Get.width,
                 color: Colors.white,
                 child: Text(
-                  '70 L.E',
+                  '${package.price} L.E',
                   style: styleTextPackage.copyWith(
                       color: KprimaryColor, fontSize: 20),
                   textAlign: TextAlign.center,
@@ -63,56 +76,25 @@ class Package extends StatelessWidget {
               ),
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.done,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Delivers Within 48 Hours',
-                      style: styleTextPackage,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.done,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Real users',
-                      style: styleTextPackage,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.done,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Profile Must Be Public',
-                      style: styleTextPackage,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(package.features.length, (index) {
+                  return Row(
+                    children: [
+                      Icon(
+                        Icons.done,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '${package.features.elementAt(index)}',
+                        style: styleTextPackage,
+                      ),
+                    ],
+                  );
+                })),
             SizedBox(
               height: 10,
             ),
@@ -121,7 +103,7 @@ class Package extends StatelessWidget {
                 Navigator.push(
                   context,
                   new MaterialPageRoute(
-                    builder: (BuildContext context) => new CheckoutView(),
+                    builder: (BuildContext context) => new CheckoutView(package),
                   ),
                 );
                 //Get.toNamed(Routes.CHECKOUT);

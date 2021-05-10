@@ -1,13 +1,13 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:grow/app/data/app_constand.dart';
-
+import 'package:grow/app/modules/payment/model/payment_model.dart';
 import '../controllers/payment_controller.dart';
+import 'package:intl/intl.dart';
 
 class PaymentView extends GetView<PaymentController> {
+  PaymentController controller = Get.put(PaymentController());
+
   List<String> ServicesLogo = [
     'images/yt.png',
     'images/inst.png',
@@ -16,6 +16,9 @@ class PaymentView extends GetView<PaymentController> {
 
   @override
   Widget build(BuildContext context) {
+
+    controller.getMyPackages();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -27,226 +30,94 @@ class PaymentView extends GetView<PaymentController> {
         ),
         centerTitle: true,
       ),
-      body: ListView(
-        children: [
-          Card(
-            color: Color(0xffFFF8DE),
-            child: ExpansionTile(
-              //backgroundColor: KprimaryColor.withOpacity(.5),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '15 April 2021',
-                    style: TextStyle(
-                      color: KprimaryColor,
-                    ),
-                  ),
-                  Text(
-                    '253 \$',
-                    style: TextStyle(
-                      color: KprimaryColor,
-                    ),
-                  )
-                ],
-              ),
+      body: GetX<PaymentController>(builder: (builder) {
+        return FutureBuilder(
+            future: controller.paymentList.value,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
 
-              children: [
-                Container(
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('images/youtube_baner.png'),
-                      ),
-                      ListTile(
-                        leading: Text(
-                          'Date :',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: KprimaryColor,
-                              fontSize: 18),
-                        ),
-                        title: Text('15 April 2021'),
-                      ),
-                      ListTile(
-                        leading: Text(
-                          'Followers :',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: KprimaryColor,
-                              fontSize: 18),
-                        ),
-                        title: Text('252'),
-                      ),
-                      ListTile(
-                        leading: Text(
-                          'Payment :',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: KprimaryColor,
-                              fontSize: 18),
-                        ),
-                        title: Text('150 \$'),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          Card(
-            color: Color(0xffFFF8DE),
-            child: ExpansionTile(
-              //backgroundColor: KprimaryColor.withOpacity(.5),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '15 April 2021',
-                    style: TextStyle(
-                      color: KprimaryColor,
-                    ),
-                  ),
-                  Text(
-                    '253 \$',
-                    style: TextStyle(
-                      color: KprimaryColor,
-                    ),
-                  )
-                ],
-              ),
+                List<Subscribtion> paymentList =snapshot.data;
 
-              children: [
-                Container(
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('images/youtube_baner.png'),
-                      ),
-                      ListTile(
-                        leading: Text(
-                          'Date :',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: KprimaryColor,
-                              fontSize: 18),
+                return ListView(
+                  children: List.generate(paymentList.length, (index) => Card(
+                      color: Color(0xffFFF8DE),
+                      child: ExpansionTile(
+                        //backgroundColor: KprimaryColor.withOpacity(.5),
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '${ DateFormat('yyyy-MM-dd').format(paymentList.elementAt(index).date).toString()}',
+                              style: TextStyle(
+                                color: KprimaryColor,
+                              ),
+                            ),
+                            Text(
+                              '${paymentList.elementAt(index).price} L.E',
+                              style: TextStyle(
+                                color: KprimaryColor,
+                              ),
+                            )
+                          ],
                         ),
-                        title: Text('15 April 2021'),
-                      ),
-                      ListTile(
-                        leading: Text(
-                          'Followers :',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: KprimaryColor,
-                              fontSize: 18),
-                        ),
-                        title: Text('252'),
-                      ),
-                      ListTile(
-                        leading: Text(
-                          'Payment :',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: KprimaryColor,
-                              fontSize: 18),
-                        ),
-                        title: Text('150 \$'),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          Card(
-            color: Color(0xffFFF8DE),
-            child: ExpansionTile(
-              //backgroundColor: KprimaryColor.withOpacity(.5),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '15 April 2021',
-                    style: TextStyle(
-                      color: KprimaryColor,
-                    ),
-                  ),
-                  Text(
-                    '253 \$',
-                    style: TextStyle(
-                      color: KprimaryColor,
-                    ),
-                  )
-                ],
-              ),
 
-              children: [
-                Container(
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 15,
+                        children: [
+                          Container(
+                            color: Colors.white,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child:
+                                      Image.asset('images/youtube_baner.png'),
+                                ),
+                                ListTile(
+                                  leading: Text(
+                                    'Date :',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: KprimaryColor,
+                                        fontSize: 18),
+                                  ),
+                                  title: Text('${DateFormat('yyyy-MM-dd').format(paymentList.elementAt(index).date).toString()}'),
+                                ),
+                                ListTile(
+                                  leading: Text(
+                                    'Followers :',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: KprimaryColor,
+                                        fontSize: 18),
+                                  ),
+                                  title: Text('${paymentList.elementAt(index).subscribers??0}'),
+                                ),
+                                ListTile(
+                                  leading: Text(
+                                    'Payment :',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: KprimaryColor,
+                                        fontSize: 18),
+                                  ),
+                                  title: Text('${paymentList.elementAt(index).price} \$'),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset('images/youtube_baner.png'),
-                      ),
-                      ListTile(
-                        leading: Text(
-                          'Date :',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: KprimaryColor,
-                              fontSize: 18),
-                        ),
-                        title: Text('15 April 2021'),
-                      ),
-                      ListTile(
-                        leading: Text(
-                          'Followers :',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: KprimaryColor,
-                              fontSize: 18),
-                        ),
-                        title: Text('252'),
-                      ),
-                      ListTile(
-                        leading: Text(
-                          'Payment :',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: KprimaryColor,
-                              fontSize: 18),
-                        ),
-                        title: Text('150 \$'),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
+                    ),)  
+                );
+              }
+
+              return CircularProgressIndicator();
+            });
+      }),
     );
   }
 }

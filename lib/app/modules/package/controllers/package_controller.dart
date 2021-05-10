@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:grow/app/api/response_model.dart';
+import 'package:grow/app/api/web_serives.dart';
+import 'package:grow/app/modules/package/model/package_model.dart';
 
 class PackageController extends GetxController {
   //TODO: Implement PackageController
@@ -9,12 +12,16 @@ class PackageController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  var pakcageslList = Future.value().obs;
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+  getPackage() async {
+    ResponsModel responsModel = await WebServices().getShowPakcages();
+    if (responsModel.success) {
+      Response response = responsModel.data;
+      if (response.body['success']) {
+        final pakcageslListModel = pakcageslListModelFromJson(response.bodyString);
+        pakcageslList.value = Future.value(pakcageslListModel.packages);
+      }
+    }
+  }
 }

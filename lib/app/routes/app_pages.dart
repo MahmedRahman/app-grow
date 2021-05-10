@@ -72,11 +72,7 @@ class AppPages {
       page: () => PackageView(),
       binding: PackageBinding(),
     ),
-    GetPage(
-      name: _Paths.CHECKOUT,
-      page: () => CheckoutView(),
-      binding: CheckoutBinding(),
-    ),
+
     GetPage(
       name: _Paths.PAYMENT,
       page: () => PaymentView(),

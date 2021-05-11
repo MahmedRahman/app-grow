@@ -16,6 +16,7 @@ abstract class Routes {
   static const SETTINGS = _Paths.SETTINGS;
   static const YOUTUBE_CHANNELS = _Paths.YOUTUBE_CHANNELS;
   static const YOUTUBE_CHANNEL_VEDIO = _Paths.YOUTUBE_CHANNEL_VEDIO;
+  static const YOUTUBE_MY_CHANNELS =  _Paths.YOUTUBE_MY_CHANNELS;
 }
 
 abstract class _Paths {
@@ -33,4 +34,5 @@ abstract class _Paths {
   static const SETTINGS = '/settings';
   static const YOUTUBE_CHANNELS = '/channels';
   static const YOUTUBE_CHANNEL_VEDIO = '/channel-vedio';
+  static const YOUTUBE_MY_CHANNELS = '/my-channels';
 }

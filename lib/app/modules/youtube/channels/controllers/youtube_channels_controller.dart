@@ -36,9 +36,20 @@ class YoutubeChannelsController extends GetxController {
     if (responsModel.success) {
       Response response = responsModel.data;
       if (response.body['success']) {
-        Get.snackbar('Grow App', 'Subscribed Successfully',backgroundColor: KprimaryColor);
+         getYoutubeChannelList();
+        Get.snackbar(
+          'Grow App',
+          'Subscribed Successfully',
+          backgroundColor: KprimaryColor,
+          snackbarStatus: (SnackbarStatus Status) {
+            if(Status == SnackbarStatus.CLOSING){
+             
+            }
+          },
+        );
       } else {
-        Get.snackbar('Grow App', 'You Already Subscribed To This Channel',backgroundColor: KprimaryColor);
+        Get.snackbar('Grow App', 'You Already Subscribed To This Channel',
+            backgroundColor: KprimaryColor);
       }
     }
   }

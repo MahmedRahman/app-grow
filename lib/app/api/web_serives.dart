@@ -39,4 +39,10 @@ class WebServices extends APIManger {
     );
     return response;
   }
+
+  Future<ResponsModel> getMyChannels() async {
+    ResponsModel response = await repPost('my_youtube_channels');
+    return response;
+  }
+  
 }

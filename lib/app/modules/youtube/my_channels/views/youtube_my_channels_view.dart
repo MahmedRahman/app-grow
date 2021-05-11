@@ -1,33 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 
 import 'package:get/get.dart';
 import 'package:grow/app/component/CustomImageCached.dart';
 import 'package:grow/app/data/app_constand.dart';
+import 'package:grow/app/modules/youtube/channelVedio/models/viideos_list.dart';
 import 'package:grow/app/modules/youtube/channels/model/youtube_channels_model.dart';
 import 'package:grow/app/routes/app_pages.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../controllers/youtube_channels_controller.dart';
+import '../controllers/youtube_my_channels_controller.dart';
 
-class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
+class YoutubeMyChannelsView extends GetView<YoutubeMyChannelsController> {
   @override
   Widget build(BuildContext context) {
-    YoutubeChannelsController controller = Get.put(YoutubeChannelsController());
-    controller.getYoutubeChannelList();
+    YoutubeMyChannelsController controller =
+        Get.put(YoutubeMyChannelsController());
+    controller.getMyChannels();
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Subscribe',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+          'My Channels',
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),
-     
-      body: GetX<YoutubeChannelsController>(builder: (_) {
+      body: GetX<YoutubeMyChannelsController>(builder: (_) {
         return FutureBuilder(
             future: controller.youtubeChannelsList.value,
             builder: (context, snapshot) {
@@ -40,7 +36,6 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                     (index) {
                       return InkWell(
                         onTap: () {
-                          
                           Get.toNamed(
                             Routes.YOUTUBE_CHANNEL_VEDIO,
                             arguments: [
@@ -121,20 +116,7 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                                         )
                                       ],
                                     ),
-                                 ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          primary:    ChannelsList.elementAt(
-                                                        index)
-                                                    .subscribtion_status ? Colors.grey[200] : Colors.red),
-                                      onPressed: () {
-                                          ChannelsList.elementAt(
-                                                        index)
-                                                    .subscribtion_status ? null : controller.setChannelSubscribe(
-                                            ChannelsList.elementAt(index)
-                                                .channelId); ;
-                                      },
-                                      child: Text('subscriptions'),
-                                    ),
+                          
                                   ],
                                 ),
                               ],
@@ -146,12 +128,13 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                   ).toList(),
                 );
               }
-              return Center(child: CircularProgressIndicator(
-                backgroundColor: KprimaryColor,
-              ),);
+              return Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: KprimaryColor,
+                ),
+              );
             });
       }),
-   
     );
   }
 }

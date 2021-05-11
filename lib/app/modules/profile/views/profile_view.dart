@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:grow/app/data/app_constand.dart';
+import 'package:grow/app/modules/youtube/my_channels/views/youtube_my_channels_view.dart';
 import 'package:grow/app/routes/app_pages.dart';
 
 import '../controllers/profile_controller.dart';
@@ -38,7 +39,15 @@ class ProfileView extends GetView<ProfileController> {
           Divider(),
           Card(
             child: ListTile(
-              title: Text('youtube'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext Context) =>new YoutubeMyChannelsView(),
+                  ),
+                );
+              },
+              title: Text('My Youtube Channel'),
               trailing: Icon(
                 Icons.arrow_forward_ios,
                 color: KprimaryColor,
@@ -46,6 +55,7 @@ class ProfileView extends GetView<ProfileController> {
               leading: Image.asset('images/yt.png'),
             ),
           ),
+          /* 
           Card(
             child: ListTile(
               title: Text('Facebook'),
@@ -66,6 +76,7 @@ class ProfileView extends GetView<ProfileController> {
               leading: Image.asset('images/inst.png'),
             ),
           ),
+       
           Card(
             child: ListTile(
               title: Text('My payments'),
@@ -76,6 +87,8 @@ class ProfileView extends GetView<ProfileController> {
               leading: Image.asset('images/payment.png'),
             ),
           ),
+*/
+
           Card(
             child: ListTile(
               title: Text('Settings'),

@@ -21,8 +21,8 @@ class YoutubeChannelVedioController extends GetxController {
     ChannelInfo channelInfo = channelInfoFromJson(response);
     //ChannelViedoInfo.value = Future.value(channelInfo);
 
-getChannelPlayViedoList(channelInfo.items.first.contentDetails.relatedPlaylists.uploads);
-
+    getChannelPlayViedoList(
+        channelInfo.items.first.contentDetails.relatedPlaylists.uploads);
   }
 
   getChannelPlayViedoList(String playListId) async {

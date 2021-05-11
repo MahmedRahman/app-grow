@@ -11,8 +11,10 @@ import 'package:grow/app/modules/settings/views/settings_view.dart';
 
 import '../controllers/layout_controller.dart';
 
-class LayoutView extends GetView<LayoutController> {
   var BottomNavigationIndex = 0.obs;
+
+class LayoutView extends GetView<LayoutController> {
+
 
   @override
   Widget build(BuildContext context) {

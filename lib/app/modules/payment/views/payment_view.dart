@@ -88,14 +88,26 @@ class PaymentView extends GetView<PaymentController> {
                                 ),
                                 ListTile(
                                   leading: Text(
-                                    'Followers :',
+                                    'subscribers :',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: KprimaryColor,
                                         fontSize: 18),
                                   ),
-                                  title: Text('${paymentList.elementAt(index).subscribers??0}'),
+                                  title: Text('${paymentList.elementAt(index).subscribers??'0'}'),
                                 ),
+
+                                           ListTile(
+                                  leading: Text(
+                                    'status :',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: KprimaryColor,
+                                        fontSize: 18),
+                                  ),
+                                  title: Text('${paymentList.elementAt(index).status}'),
+                                ),
+
                                 ListTile(
                                   leading: Text(
                                     'Payment :',
@@ -115,7 +127,11 @@ class PaymentView extends GetView<PaymentController> {
                 );
               }
 
-              return CircularProgressIndicator();
+              return Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: KprimaryColor,
+                ),
+              );
             });
       }),
     );

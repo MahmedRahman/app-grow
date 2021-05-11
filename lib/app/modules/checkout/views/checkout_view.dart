@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -22,50 +24,13 @@ class CheckoutView extends GetView<CheckoutController> {
         padding: const EdgeInsets.all(15),
         child: ListView(
           children: [
-            Text(
-              '  Use your video URL',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        isDense: true,
-                        hintText: ' video URL',
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: KprimaryColor),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  SizedBox(
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: KprimaryColor),
-                      onPressed: () {},
-                      child: Text(
-                        'Done',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+       
+       
             SizedBox(
               height: 5,
             ),
             Text(
-              '  Your copon code',
+              '  Your Copon Code',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             ),
             SizedBox(
@@ -176,9 +141,9 @@ class CheckoutView extends GetView<CheckoutController> {
             ),
             ElevatedButton(
               onPressed: () {
-                controller.setPackageSubscribe(package.id.toString());
+                controller.setPackageSubscribe(package.id.toString(),context);
               },
-              child: Text('Payment'),
+              child: Text('Complete Your Order'),
               style: ElevatedButton.styleFrom(primary: KprimaryColor),
             )
           ],

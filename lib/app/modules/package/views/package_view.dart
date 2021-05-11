@@ -41,7 +41,11 @@ class PackageView extends GetView<PackageController> {
                   ),
                 );
               }
-              return CircularProgressIndicator();
+              return Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: KprimaryColor,
+                ),
+              );
             });
       }),
     );

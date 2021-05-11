@@ -45,7 +45,7 @@ class Subscribtion {
     int id;
     String package;
     String status;
-    int subscribers;
+    String subscribers;
     int price;
     DateTime date;
 

@@ -12,23 +12,18 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   List<String> ServicesBaner = [
     'images/youtube_baner.png',
-
   ];
 
   List<String> ServicesLogo = [
     'images/yt.png',
-
   ];
 
   List<String> youtube = [
     'Buy YouTube Subscribers',
-
   ];
 
   List<String> youtube_earn = [
-
     'Subscribe',
-
   ];
 
   List<String> instagram = [
@@ -98,11 +93,9 @@ class HomeView extends GetView<HomeController> {
                         SizedBox(
                           height: 10,
                         ),
-                     
                         SizedBox(
                           height: 10,
                         ),
-                       
                       ],
                     )
                   : Column(
@@ -112,11 +105,9 @@ class HomeView extends GetView<HomeController> {
                         SizedBox(
                           height: 10,
                         ),
-                      
                         SizedBox(
                           height: 10,
                         ),
-                      
                       ],
                     );
             }),
@@ -233,95 +224,103 @@ class HomeView extends GetView<HomeController> {
           child: Text(
             'Unique Features',
             textAlign: TextAlign.left,
-            style: styleTextTitle.copyWith(fontSize: 16),
+            style: styleTextTitle.copyWith(fontSize: 16, color: KScandtColor),
           ),
         ),
         SizedBox(
           height: 5,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
+                    width: double.infinity,
                     decoration: BoxDecoration(
-                      color: KprimaryColor.withOpacity(.6),
+                      color: Color(0xffFFF8DE),
                       border: Border.all(color: KprimaryColor),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: Image.asset('images/followers.png'),
-                      ),
+                    child: SizedBox(
+                      width: 50,
+                      height: 100,
+                      child: Image.asset('images/followers.png'),
                     ),
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Text(
-                    'Real Followers',
+                    'Fast time',
                     style: styleTextSubTitle.copyWith(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: KScandtColor),
                   ),
                 ],
               ),
             ),
-            Container(
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
+                    width: double.infinity,
                     decoration: BoxDecoration(
-                      color: KprimaryColor.withOpacity(.6),
+                      color: Color(0xffFFF8DE),
                       border: Border.all(color: KprimaryColor),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: Image.asset('images/fast-delivery.png'),
-                      ),
+                    child: SizedBox(
+                      width: 50,
+                      height: 100,
+                      child: Image.asset('images/fast-delivery.png'),
                     ),
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Text(
-                    'Real Followers',
+                    'Fast time',
                     style: styleTextSubTitle.copyWith(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: KScandtColor),
                   ),
                 ],
               ),
             ),
-            Container(
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
+                    width: double.infinity,
                     decoration: BoxDecoration(
-                      color: KprimaryColor.withOpacity(.6),
+                      color: Color(0xffFFF8DE),
                       border: Border.all(color: KprimaryColor),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: Image.asset('images/dollar.png'),
-                      ),
+                    child: SizedBox(
+                      width: 50,
+                      height: 100,
+                      child: Image.asset('images/dollar.png'),
                     ),
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Text(
-                    'Best prices',
+                    'Fast time',
                     style: styleTextSubTitle.copyWith(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: KScandtColor),
                   ),
                 ],
               ),

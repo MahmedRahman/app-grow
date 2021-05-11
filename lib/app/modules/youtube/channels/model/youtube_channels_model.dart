@@ -42,6 +42,7 @@ class Datum {
         this.title,
         this.banner,
         this.logo,
+        this.subscribtion_status
     });
 
     String channelId;
@@ -52,6 +53,7 @@ class Datum {
     String title;
     String banner;
     String logo;
+    bool subscribtion_status;
 
     factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         channelId: json["channel_id"],
@@ -62,6 +64,7 @@ class Datum {
         title: json["title"],
         banner: json["banner"],
         logo: json["logo"],
+         subscribtion_status: json["subscribtion_status"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -73,5 +76,6 @@ class Datum {
         "title": title,
         "banner": banner,
         "logo": logo,
+        //"subscribtion_status",subscribtion_status,
     };
 }

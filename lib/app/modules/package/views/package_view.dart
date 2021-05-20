@@ -11,20 +11,15 @@ import '../controllers/package_controller.dart';
 class PackageView extends GetView<PackageController> {
   PackageController controller = Get.put(PackageController());
 
-
-
   @override
   Widget build(BuildContext context) {
-    controller.getPackage();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Views Packages'),
-        centerTitle: true,
-      ),
-      body: GetX<PackageController>(
-          //init:,
-          builder: (controller) {
-        return FutureBuilder(
+        appBar: AppBar(
+          title: Text('Views Packages'),
+          centerTitle: true,
+        ),
+        body: Obx(() {
+          return FutureBuilder(
             future: controller.pakcageslList.value,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -46,9 +41,9 @@ class PackageView extends GetView<PackageController> {
                   backgroundColor: KprimaryColor,
                 ),
               );
-            });
-      }),
-    );
+            },
+          );
+        }));
   }
 
   Widget packageItem(BuildContext context, Package package) {
@@ -107,7 +102,8 @@ class PackageView extends GetView<PackageController> {
                 Navigator.push(
                   context,
                   new MaterialPageRoute(
-                    builder: (BuildContext context) => new CheckoutView(package),
+                    builder: (BuildContext context) =>
+                        new CheckoutView(package),
                   ),
                 );
                 //Get.toNamed(Routes.CHECKOUT);

@@ -23,7 +23,6 @@ class AuthSplashView extends GetView<AuthSplashController> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Image.asset('images/logo2.png'),
-             
               SizedBox(
                 height: Get.height * .1,
               ),
@@ -31,7 +30,6 @@ class AuthSplashView extends GetView<AuthSplashController> {
                 width: Get.width,
                 height: 50,
                 child: ElevatedButton(
-                  
                   onPressed: () {
                     Get.toNamed(Routes.AUTH_SIGNUP);
                   },
@@ -68,22 +66,18 @@ class AuthSplashView extends GetView<AuthSplashController> {
                 ),
               ),
               SizedBox(
-                height: Get.height * .2,
-              ),
-              SizedBox(
                 height: 10,
               ),
-             /* SizedBox(
+              SizedBox(
                 width: Get.width,
-                height: 50,
+                height: 60,
                 child: ElevatedButton.icon(
                   onPressed: () async {
-                    /*
                     googleSignIn.requestScopes(
                       [
-                        'https://www.googleapis.com/auth/youtubepartner',
+                        //'https://www.googleapis.com/auth/youtubepartner',
                         'https://www.googleapis.com/auth/youtube',
-                        'https://www.googleapis.com/auth/youtube.force-ssl'
+                        //'https://www.googleapis.com/auth/youtube.force-ssl'
                       ],
                     );
 
@@ -102,18 +96,23 @@ class AuthSplashView extends GetView<AuthSplashController> {
                       await FirebaseAuth.instance
                           .signInWithCredential(credential);
 
+
+                      //print('accessToken ${googleAuth.}');
+
                       print('accessToken ${googleAuth.accessToken}');
                       print('serverAuthCode ${googleAuth.serverAuthCode}');
                       print('scopes ${googleSignIn.scopes}');
                       print('idToken :${googleAuth.idToken}');
-
+                             //  print('idToken :${googleAuth.}');
+     //print('email :${user}');
                       print('email :${user.email}');
                       print('email :${user.displayName}');
                       print('email :${user.photoUrl}');
 
                       print('Done');
+
+                      Get.toNamed(Routes.LAYOUT);
                     }
-                    */
                   },
                   icon: Image.asset('images/gmail_icon.png'),
                   label: Text(
@@ -132,8 +131,6 @@ class AuthSplashView extends GetView<AuthSplashController> {
                 },
                 child: Text('signOut'),
               )
-           */
-           
             ],
           ),
         ),

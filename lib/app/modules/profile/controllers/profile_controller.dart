@@ -1,20 +1,27 @@
 import 'package:get/get.dart';
+import 'package:grow/app/api/response_model.dart';
+import 'package:grow/app/api/web_serives.dart';
+import 'package:grow/app/modules/profile/model/model_profile.dart';
 
 class ProfileController extends GetxController {
-  //TODO: Implement ProfileController
-
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  Info PresonalInfo;
+  List<Balance> PresonalbalanceList;
+  List<Channel> Presonalchannels;
 
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+  void getProfile() async {
+    ResponsModel responsModel = await WebServices().getMyProfile();
+    if (responsModel.success) {
+      Response response = responsModel.data;
+      final profileModel = profileModelFromJson(response.bodyString);
+      PresonalInfo = profileModel.data.info;
+      PresonalbalanceList = profileModel.data.balance;
+      Presonalchannels = profileModel.data.channels;
+    }
+  }
 }

@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:grow/app/data/app_constand.dart';
+import 'package:grow/app/modules/profile/views/provile_detailes_view.dart';
 import 'package:grow/app/modules/youtube/my_channels/views/youtube_my_channels_view.dart';
 import 'package:grow/app/routes/app_pages.dart';
 
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
+
+  ProfileController controller = Get.put(ProfileController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +22,16 @@ class ProfileView extends GetView<ProfileController> {
       body: Column(
         children: [
           ListTile(
+            onTap: () {
+              Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  new ProfileDetailesView(),
+                            ),
+                          );
+              
+            },
             title: Text('Welcome'),
             subtitle: Text('Mohamed Abd el Rahman'),
             leading: CircleAvatar(
@@ -43,7 +57,8 @@ class ProfileView extends GetView<ProfileController> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext Context) =>new YoutubeMyChannelsView(),
+                    builder: (BuildContext Context) =>
+                        new YoutubeMyChannelsView(),
                   ),
                 );
               },

@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "235376435518",
-    "project_id": "growapp-1f216",
-    "storage_bucket": "growapp-1f216.appspot.com"
+    "project_number": "693537247048",
+    "project_id": "grow-app-314108",
+    "storage_bucket": "grow-app-314108.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:235376435518:android:b646ee063d8c6d7d220c6f",
+        "mobilesdk_app_id": "1:693537247048:android:1137ec514361e714186d7d",
         "android_client_info": {
           "package_name": "com.matrix.grow"
         }
       },
       "oauth_client": [
         {
-          "client_id": "235376435518-efkjmgphsm99bsdrt7cutnjkgtatbt2c.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.matrix.grow",
-            "certificate_hash": "e9bf4c96da1939e065190608ffe9f59e50d78e58"
-          }
-        },
-        {
-          "client_id": "235376435518-jp4r3s8scri9dh6l5ihcdnaidpbu1f1a.apps.googleusercontent.com",
+          "client_id": "693537247048-aslnb4ira0bp3tvnc60635855tuqeu24.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBQ_qbSMsiLLFJvddVCy9y6KNEWMHFM42I"
+          "current_key": "AIzaSyD9F22YLUmTgF7_kQCgSrDDPCbyahdsAaM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "235376435518-jp4r3s8scri9dh6l5ihcdnaidpbu1f1a.apps.googleusercontent.com",
+              "client_id": "693537247048-aslnb4ira0bp3tvnc60635855tuqeu24.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

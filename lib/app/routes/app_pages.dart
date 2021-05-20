@@ -34,7 +34,7 @@ import 'package:grow/app/modules/youtube/my_channels/views/youtube_my_channels_v
 part 'app_routes.dart';
 
 class AppPages {
-  static const INITIAL = Routes.LAYOUT;
+  static const INITIAL = Routes.AUTH_SPLASH;
 
   static final routes = [
     GetPage(

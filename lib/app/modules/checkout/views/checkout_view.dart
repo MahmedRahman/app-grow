@@ -10,9 +10,11 @@ import 'package:grow/app/modules/package/model/package_model.dart';
 import '../controllers/checkout_controller.dart';
 
 class CheckoutView extends GetView<CheckoutController> {
+/////////////////////////////
   Package package;
   CheckoutView(this.package);
   CheckoutController controller = Get.put(CheckoutController());
+  /////////////////////
   @override
   Widget build(BuildContext context) {
     return Scaffold(

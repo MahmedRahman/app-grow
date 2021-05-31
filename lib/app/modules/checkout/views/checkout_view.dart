@@ -81,7 +81,7 @@ class CheckoutView extends GetView<CheckoutController> {
                       height: 5,
                     ),
                     Text(
-                      '${package.subscribers} View',
+                      '${package.target}',
                       style: styleTextPackage.copyWith(fontSize: 16),
                     ),
                     Padding(

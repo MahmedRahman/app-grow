@@ -9,13 +9,17 @@ import 'package:grow/app/routes/app_pages.dart';
 import '../controllers/package_controller.dart';
 
 class PackageView extends GetView<PackageController> {
+
+
+
   PackageController controller = Get.put(PackageController());
 
   @override
   Widget build(BuildContext context) {
+    controller.getPackage();
     return Scaffold(
         appBar: AppBar(
-          title: Text('Views Packages'),
+          title: Text('Packages'),
           centerTitle: true,
         ),
         body: Obx(() {
@@ -58,7 +62,7 @@ class PackageView extends GetView<PackageController> {
               height: 5,
             ),
             Text(
-              '${package.subscribers} View',
+              '${package.target}',
               style: styleTextPackage.copyWith(fontSize: 16),
             ),
             Padding(

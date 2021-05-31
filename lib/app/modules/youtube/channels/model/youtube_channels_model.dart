@@ -4,58 +4,65 @@
 
 import 'dart:convert';
 
-ChannelListModel channelListModelFromJson(String str) => ChannelListModel.fromJson(json.decode(str));
+ChannelListModel channelListModelFromJson(String str) =>
+    ChannelListModel.fromJson(json.decode(str));
 
-String channelListModelToJson(ChannelListModel data) => json.encode(data.toJson());
+String channelListModelToJson(ChannelListModel data) =>
+    json.encode(data.toJson());
 
 class ChannelListModel {
-    ChannelListModel({
-        this.success,
-        this.code,
-        this.data,
-    });
+  ChannelListModel({
+    this.success,
+    this.code,
+    this.data,
+  });
 
-    bool success;
-    int code;
-    List<Datum> data;
+  bool success;
+  int code;
+  List<Datum> data;
 
-    factory ChannelListModel.fromJson(Map<String, dynamic> json) => ChannelListModel(
+  factory ChannelListModel.fromJson(Map<String, dynamic> json) =>
+      ChannelListModel(
         success: json["success"],
         code: json["code"],
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "success": success,
         "code": code,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-    };
+        "data": List<dynamic>.from(
+          data.map(
+            (x) => x.toJson(),
+          ),
+        ),
+      };
 }
 
 class Datum {
-    Datum({
-        this.channelId,
-        this.channelUrl,
-        this.videos,
-        this.views,
-        this.subscriberCount,
-        this.title,
-        this.banner,
-        this.logo,
-        this.subscribtion_status
-    });
+  Datum({
+    this.channelId,
+    this.channelUrl,
+    this.videos,
+    this.views,
+    this.subscriberCount,
+    this.title,
+    this.banner,
+    this.logo,
+    this.registered,
+  });
 
-    String channelId;
-    String channelUrl;
-    String videos;
-    String views;
-    String subscriberCount;
-    String title;
-    String banner;
-    String logo;
-    bool subscribtion_status;
+  String channelId;
+  String channelUrl;
+  String videos;
+  String views;
+  String subscriberCount;
+  String title;
+  String banner;
+  String logo;
+  bool registered;
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         channelId: json["channel_id"],
         channelUrl: json["channel_url"],
         videos: json["videos"],
@@ -64,10 +71,10 @@ class Datum {
         title: json["title"],
         banner: json["banner"],
         logo: json["logo"],
-         subscribtion_status: json["subscribtion_status"],
-    );
+        registered: json["registered"],
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "channel_id": channelId,
         "channel_url": channelUrl,
         "videos": videos,
@@ -76,6 +83,6 @@ class Datum {
         "title": title,
         "banner": banner,
         "logo": logo,
-        //"subscribtion_status",subscribtion_status,
-    };
+        "registered": registered,
+      };
 }

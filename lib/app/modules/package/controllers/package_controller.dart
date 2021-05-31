@@ -10,7 +10,7 @@ class PackageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getPackage();
+   
   }
 
   var pakcageslList = Future.value().obs;
@@ -23,8 +23,6 @@ class PackageController extends GetxController {
         final pakcageslListModel =
             pakcageslListModelFromJson(response.bodyString);
         pakcageslList.value = Future.value(pakcageslListModel.packages);
-
-
       }
     }
   }

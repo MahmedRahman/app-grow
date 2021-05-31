@@ -4,7 +4,7 @@ const KprimaryColor = Color(0xffCD9F41);
 const KaccentColor = Color(0xffF2F2F2);
 const KScandtColor = Color(0xff707070);
 const AppName = 'Grow App';
-
+String KtypePakcages="subscribers";
 const Kyoutube = "AIzaSyC8ph0Arqdy0u0I5kEqV44sXFPUSM7iOb0";
 
 TextStyle styleInkWell = TextStyle(color: KprimaryColor, fontSize: 14);

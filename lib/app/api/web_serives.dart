@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grow/app/api/api_manger.dart';
 import 'package:grow/app/api/response_model.dart';
+import 'package:grow/app/data/app_constand.dart';
 
 class WebServices extends APIManger {
   Future<ResponsModel> getChannelsList() async {
@@ -21,7 +22,8 @@ class WebServices extends APIManger {
   }
 
   Future<ResponsModel> getShowPakcages() async {
-    ResponsModel response = await repPost('packages');
+    ResponsModel response =
+        await repPost('packages/${KtypePakcages}', showLoading: true);
     return response;
   }
 
@@ -47,6 +49,26 @@ class WebServices extends APIManger {
 
   Future<ResponsModel> getMyProfile() async {
     ResponsModel response = await repPost('profile');
+    return response;
+  }
+
+  Future<ResponsModel> setRegisterChannel(String channelID) async {
+    ResponsModel response = await repPost('register_channel',
+        body: {
+          'channel': channelID,
+        },
+        showLoading: true);
+    return response;
+  }
+
+  Future<ResponsModel> setUnRegisterChannel(String channelID) async {
+    ResponsModel response = await repPost(
+      'unregister_channel',
+      body: {
+        'channel': channelID,
+      },
+      showLoading: true,
+    );
     return response;
   }
 }

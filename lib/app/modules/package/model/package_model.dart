@@ -37,21 +37,21 @@ class Package {
         this.id,
         this.title,
         this.price,
-        this.subscribers,
+        this.target,
         this.features,
     });
 
     int id;
     String title;
     int price;
-    int subscribers;
+    int target;
     List<String> features;
 
     factory Package.fromJson(Map<String, dynamic> json) => Package(
         id: json["id"],
         title: json["title"],
         price: json["price"],
-        subscribers: json["subscribers"],
+        target: json["target"],
         features: List<String>.from(json["features"].map((x) => x)),
     );
 
@@ -59,7 +59,7 @@ class Package {
         "id": id,
         "title": title,
         "price": price,
-        "subscribers": subscribers,
+        "target": target,
         "features": List<dynamic>.from(features.map((x) => x)),
     };
 }

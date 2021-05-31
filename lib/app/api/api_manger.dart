@@ -50,7 +50,7 @@ class APIManger extends GetConnect {
       switch (response.statusCode) {
         case 200:
           if (showLoading) {
-            EasyLoading.showSuccess('Done');
+            EasyLoading.dismiss();
           }
 
           return ResponsModel(
@@ -118,7 +118,7 @@ class APIManger extends GetConnect {
       switch (response.statusCode) {
         case 200:
           if (showLoading) {
-            EasyLoading.showSuccess('Done');
+            EasyLoading.dismiss();
           }
           return ResponsModel(
             code: response.statusCode,

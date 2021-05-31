@@ -20,10 +20,12 @@ class HomeView extends GetView<HomeController> {
 
   List<String> youtube = [
     'Buy YouTube Subscribers',
+    'Buy YouTube views',
   ];
 
   List<String> youtube_earn = [
     'Subscribe',
+    'views',
   ];
 
   List<String> instagram = [
@@ -84,33 +86,37 @@ class HomeView extends GetView<HomeController> {
                 style: styleTextTitle.copyWith(fontSize: 16),
               ),
             ),
-            Obx(() {
-              return selectIndex.value == 0
-                  ? Column(
-                      children: [
-                        SocialServices(context, ServicesBaner[0], youtube,
-                            ServicesLogo[0]),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    )
-                  : Column(
-                      children: [
-                        SocialServices(context, ServicesBaner[0], youtube_earn,
-                            ServicesLogo[0]),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    );
-            }),
+            Obx(
+              () {
+                return selectIndex.value == 0
+                    ? Column(
+                        children: [
+                          SocialServices(
+                            context,
+                            ServicesBaner[0],
+                            youtube,
+                            ServicesLogo[0],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          SocialServices(
+                            context,
+                            ServicesBaner[0],
+                            youtube_earn,
+                            ServicesLogo[0],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      );
+              },
+            ),
             Features(),
           ],
         ),
@@ -188,28 +194,43 @@ class HomeView extends GetView<HomeController> {
           Container(
             color: Colors.white,
             child: Column(
-                children: List.generate(ServicesList.length, (index) {
-              return ListTile(
-                  onTap: () {
-                    HomeView.selectIndex.value == 1
-                        ? Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  new YoutubeChannelsView(),
-                            ),
-                          )
-                        : Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  new PackageView(),
-                            ),
-                          );
-                  },
-                  title: Text(ServicesList.elementAt(index).toString()),
-                  leading: Image.asset(SocialServicesLogo));
-            }).toList()),
+              children: List.generate(
+                ServicesList.length,
+                (index) {
+                  return ListTile(
+                    onTap: () {
+                      if (ServicesList.elementAt(index) ==
+                          "Buy YouTube Subscribers") {
+                        KtypePakcages = "subscribers";
+                      }
+
+                      if (ServicesList.elementAt(index) ==
+                          "Buy YouTube views") {
+                        KtypePakcages = "views";
+                      }
+
+                      HomeView.selectIndex.value == 1
+                          ? Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    new YoutubeChannelsView(),
+                              ),
+                            )
+                          : Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    new PackageView(),
+                              ),
+                            );
+                    },
+                    title: Text(ServicesList.elementAt(index).toString()),
+                    leading: Image.asset(SocialServicesLogo),
+                  );
+                },
+              ).toList(),
+            ),
           ),
         ],
       ),
@@ -224,7 +245,10 @@ class HomeView extends GetView<HomeController> {
           child: Text(
             'Unique Features',
             textAlign: TextAlign.left,
-            style: styleTextTitle.copyWith(fontSize: 16, color: KScandtColor),
+            style: styleTextTitle.copyWith(
+              fontSize: 16,
+              color: KScandtColor,
+            ),
           ),
         ),
         SizedBox(
@@ -254,9 +278,10 @@ class HomeView extends GetView<HomeController> {
                   Text(
                     'Fast time',
                     style: styleTextSubTitle.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: KScandtColor),
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: KScandtColor,
+                    ),
                   ),
                 ],
               ),

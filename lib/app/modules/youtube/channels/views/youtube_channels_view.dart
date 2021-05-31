@@ -26,7 +26,6 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
         ),
         centerTitle: true,
       ),
-     
       body: GetX<YoutubeChannelsController>(builder: (_) {
         return FutureBuilder(
             future: controller.youtubeChannelsList.value,
@@ -40,7 +39,6 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                     (index) {
                       return InkWell(
                         onTap: () {
-                          
                           Get.toNamed(
                             Routes.YOUTUBE_CHANNEL_VEDIO,
                             arguments: [
@@ -121,17 +119,19 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                                         )
                                       ],
                                     ),
-                                 ElevatedButton(
+                                    ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          primary:    ChannelsList.elementAt(
-                                                        index)
-                                                    .subscribtion_status ? Colors.grey[200] : Colors.red),
+                                          primary: ChannelsList.elementAt(index)
+                                                  .registered
+                                              ? Colors.grey[200]
+                                              : Colors.red),
                                       onPressed: () {
-                                          ChannelsList.elementAt(
-                                                        index)
-                                                    .subscribtion_status ? null : controller.setChannelSubscribe(
-                                            ChannelsList.elementAt(index)
-                                                .channelId); ;
+                                        ChannelsList.elementAt(index).registered
+                                            ? null
+                                            : controller.setChannelSubscribe(
+                                                ChannelsList.elementAt(index)
+                                                    .channelId);
+                                        ;
                                       },
                                       child: Text('subscriptions'),
                                     ),
@@ -146,12 +146,13 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                   ).toList(),
                 );
               }
-              return Center(child: CircularProgressIndicator(
-                backgroundColor: KprimaryColor,
-              ),);
+              return Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: KprimaryColor,
+                ),
+              );
             });
       }),
-   
     );
   }
 }

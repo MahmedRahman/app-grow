@@ -81,14 +81,14 @@ class PaymentView extends GetView<PaymentController> {
                               ),
                               ListTile(
                                 leading: Text(
-                                  'subscribers :',
+                                  '${paymentList.elementAt(index).type} :',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: KprimaryColor,
                                       fontSize: 18),
                                 ),
                                 title: Text(
-                                    '${paymentList.elementAt(index).subscribers ?? '0'}'),
+                                    '${paymentList.elementAt(index).target ?? '0'}'),
                               ),
                               ListTile(
                                 leading: Text(

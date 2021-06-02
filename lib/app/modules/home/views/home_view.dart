@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:grow/app/data/app_constand.dart';
 import 'package:grow/app/modules/package/views/package_view.dart';
 import 'package:grow/app/modules/youtube/channels/views/youtube_channels_view.dart';
+import 'package:grow/app/modules/youtubeview/views/youtubeview_view.dart';
 import 'package:grow/app/routes/app_pages.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -86,36 +87,95 @@ class HomeView extends GetView<HomeController> {
                 style: styleTextTitle.copyWith(fontSize: 16),
               ),
             ),
-            Obx(
-              () {
-                return selectIndex.value == 0
-                    ? Column(
-                        children: [
-                          SocialServices(
-                            context,
-                            ServicesBaner[0],
-                            youtube,
-                            ServicesLogo[0],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          SocialServices(
-                            context,
-                            ServicesBaner[0],
-                            youtube_earn,
-                            ServicesLogo[0],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      );
-              },
+            Container(
+              color: KprimaryColor.withOpacity(.6),
+              child: ExpansionTile(
+                backgroundColor: KaccentColor,
+                trailing: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.arrow_drop_down_circle_outlined,
+                    size: 32,
+                  ),
+                ),
+                title: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: SizedBox(
+                    height: 40,
+                    child: Image.asset('images/youtube_baner.png'),
+                  ),
+                ),
+                children: [
+                  Container(
+                    color: Colors.white,
+                    child: Obx(
+                      () {
+                        return selectIndex.value == 0
+                            ? Column(
+                                children: [
+                                  ListTile(
+                                    onTap: () {
+                                      KtypePakcages = "subscribers";
+                                      Navigator.push(
+                                        context,
+                                        new MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              new PackageView(),
+                                        ),
+                                      );
+                                    },
+                                    title: Text('Buy YouTube Subscribers'),
+                                    leading: Icon(Icons.youtube_searched_for),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      KtypePakcages = "views";
+                                      Navigator.push(
+                                        context,
+                                        new MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              new PackageView(),
+                                        ),
+                                      );
+                                    },
+                                    title: Text('Buy YouTube views'),
+                                    leading: Icon(Icons.youtube_searched_for),
+                                  )
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        new MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              new YoutubeChannelsView(),
+                                        ),
+                                      );
+                                    },
+                                    title: Text('Subscribe'),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        new MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              new YoutubeviewView(),
+                                        ),
+                                      );
+                                    },
+                                    title: Text('views'),
+                                  )
+                                ],
+                              );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
             Features(),
           ],

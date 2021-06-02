@@ -71,4 +71,40 @@ class WebServices extends APIManger {
     );
     return response;
   }
+
+  Future<ResponsModel> getVideosList({String chanelID}) async {
+    ResponsModel response =
+        await repPost('my_videos/$chanelID', showLoading: true);
+    return response;
+  }
+
+  Future<ResponsModel> setRegisterVideo({String videoID}) async {
+    ResponsModel response = await repPost(
+      'register_video',
+      body: {
+        'video': videoID,
+      },
+      showLoading: true,
+    );
+    return response;
+  }
+
+  Future<ResponsModel> setUnRegisterVideo({String videoID}) async {
+    ResponsModel response = await repPost(
+      'unregister_video',
+      body: {
+        'video': videoID,
+      },
+      showLoading: true,
+    );
+    return response;
+  }
+
+  Future<ResponsModel> getViewVideosList() async {
+    ResponsModel response = await repPost(
+      'videos_list',
+      showLoading: true,
+    );
+    return response;
+  }
 }

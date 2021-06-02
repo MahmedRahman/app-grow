@@ -30,6 +30,8 @@ import 'package:grow/app/modules/youtube/channels/bindings/youtube_channels_bind
 import 'package:grow/app/modules/youtube/channels/views/youtube_channels_view.dart';
 import 'package:grow/app/modules/youtube/my_channels/bindings/youtube_my_channels_binding.dart';
 import 'package:grow/app/modules/youtube/my_channels/views/youtube_my_channels_view.dart';
+import 'package:grow/app/modules/youtubeview/bindings/youtubeview_binding.dart';
+import 'package:grow/app/modules/youtubeview/views/youtubeview_view.dart';
 
 part 'app_routes.dart';
 
@@ -108,6 +110,11 @@ class AppPages {
       name: _Paths.YOUTUBE_MY_CHANNELS,
       page: () => YoutubeMyChannelsView(),
       binding: YoutubeMyChannelsBinding(),
+    ),
+    GetPage(
+      name: _Paths.YOUTUBEVIEW,
+      page: () => YoutubeviewView(),
+      binding: YoutubeviewBinding(),
     ),
   ];
 }

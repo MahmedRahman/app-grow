@@ -65,7 +65,7 @@ class YoutubeChannelVedioController extends GetxController {
     if (responseModel.success) {
       Response response = responseModel.data;
       if (response.body['success']) {
-        Get.snackbar(AppName, 'تم تسجيل الفيديو');
+        Get.snackbar(AppName, 'تم الغاء تسجيل الفيديو');
          getChannelViedoList(channel);
       }
     }

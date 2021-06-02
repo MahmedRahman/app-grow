@@ -57,25 +57,25 @@ class _VedioViewState extends State<VedioView> {
       body: Container(
         child: Column(
           children: [
-            Obx(() {
-              return Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  time.value.toString(),
-                  style: TextStyle(
-                      color: KprimaryColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
-                ),
-              );
-            }),
+            Obx(
+              () {
+                return Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Text(
+                    time.value.toString(),
+                    style: TextStyle(
+                        color: KprimaryColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                );
+              },
+            ),
             Container(
               height: 600,
-              child: Expanded(
-                child: Html(
-                  data:
-                      '<iframe width="560" height="600" src="https://www.youtube.com/watch?v=${widget.Veidoid}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
-                ),
+              child: Html(
+                data:
+                    '<iframe width="560" height="600" src="https://www.youtube.com/watch?v=${widget.Veidoid}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
               ),
             )
           ],

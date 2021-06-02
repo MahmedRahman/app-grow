@@ -18,48 +18,46 @@ class YoutubeviewView extends GetView<YoutubeviewController> {
         title: Text('View Youtube Viedo'),
         centerTitle: true,
       ),
-      body: Obx(
-        () {
-          return FutureBuilder(
-              future: controller.VideoList.value,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  Viedo viedo = snapshot.data;
+      body: Obx(() {
+        return FutureBuilder(
+            future: controller.VideoList.value,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                Viedo viedo = snapshot.data;
 
-                  return ListView(
-                    children: List.generate(
-                      viedo.data.length,
-                      (index) => InkWell(
-                        onTap: (){
- Get.to(
-                                      VedioView(
-                                        viedo.data.elementAt(index).duration,
-                                        viedo.data.elementAt(index).id,
-                                      ),
-                                      fullscreenDialog: true);
-                        },
-                        child: Card(
-                          child: Column(
-                            children: [
-                              CustomImageCached(
-                                  imageUrl: viedo.data.elementAt(index).thumbnails),
-                              ListTile(
-                              
-                                title: Text(viedo.data.elementAt(index).title),
-                                subtitle:
-                                    Text(viedo.data.elementAt(index).description),
-                              ),
-                            ],
-                          ),
+                return ListView(
+                  children: List.generate(
+                    viedo.data.length,
+                    (index) => InkWell(
+                      onTap: () {
+                        Get.to(
+                            VedioView(
+                              viedo.data.elementAt(index).duration,
+                              viedo.data.elementAt(index).id,
+                            ),
+                            fullscreenDialog: true);
+                      },
+                      child: Card(
+                        child: Column(
+                          children: [
+                            CustomImageCached(
+                                imageUrl:
+                                    viedo.data.elementAt(index).thumbnails),
+                            ListTile(
+                              title: Text(viedo.data.elementAt(index).title),
+                              subtitle:
+                                  Text(viedo.data.elementAt(index).description),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  );
-                }
-                return CircularProgressIndicator();
-              });
-        }
-      ),
+                  ),
+                );
+              }
+              return CircularProgressIndicator();
+            });
+      }),
     );
   }
 }

@@ -37,22 +37,26 @@ class Data {
         this.info,
         this.balance,
         this.channels,
+        this.videos,
     });
 
     Info info;
     List<Balance> balance;
-    List<Channel> channels;
+    List<ChannelElement> channels;
+    List<VideoElement> videos;
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
         info: Info.fromJson(json["info"]),
         balance: List<Balance>.from(json["balance"].map((x) => Balance.fromJson(x))),
-        channels: List<Channel>.from(json["channels"].map((x) => Channel.fromJson(x))),
+        channels: List<ChannelElement>.from(json["channels"].map((x) => ChannelElement.fromJson(x))),
+        videos: List<VideoElement>.from(json["videos"].map((x) => VideoElement.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "info": info.toJson(),
         "balance": List<dynamic>.from(balance.map((x) => x.toJson())),
         "channels": List<dynamic>.from(channels.map((x) => x.toJson())),
+        "videos": List<dynamic>.from(videos.map((x) => x.toJson())),
     };
 }
 
@@ -61,27 +65,31 @@ class Balance {
         this.date,
         this.amount,
         this.channel,
+        this.video,
     });
 
     DateTime date;
     String amount;
-    Channel channel;
+    dynamic channel;
+    dynamic video;
 
     factory Balance.fromJson(Map<String, dynamic> json) => Balance(
         date: DateTime.parse(json["date"]),
         amount: json["amount"],
-        channel: Channel.fromJson(json["channel"]),
+        channel: json["channel"],
+        video: json["video"],
     );
 
     Map<String, dynamic> toJson() => {
         "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
         "amount": amount,
-        "channel": channel.toJson(),
+        "channel": channel,
+        "video": video,
     };
 }
 
-class Channel {
-    Channel({
+class ChannelElement {
+    ChannelElement({
         this.channelId,
         this.channelUrl,
         this.videos,
@@ -107,7 +115,7 @@ class Channel {
     int appSubscribers;
     List<SubscribersDatum> subscribersData;
 
-    factory Channel.fromJson(Map<String, dynamic> json) => Channel(
+    factory ChannelElement.fromJson(Map<String, dynamic> json) => ChannelElement(
         channelId: json["channel_id"],
         channelUrl: json["channel_url"],
         videos: json["videos"],
@@ -164,14 +172,93 @@ class SubscribersDatum {
     };
 }
 
+class VideoElement {
+    VideoElement({
+        this.id,
+        this.publishedAt,
+        this.title,
+        this.description,
+        this.thumbnails,
+        this.duration,
+        this.youtubeStatistics,
+        this.appViewers,
+    });
+
+    String id;
+    DateTime publishedAt;
+    String title;
+    String description;
+    String thumbnails;
+    int duration;
+    YoutubeStatistics youtubeStatistics;
+    int appViewers;
+
+    factory VideoElement.fromJson(Map<String, dynamic> json) => VideoElement(
+        id: json["id"],
+        publishedAt: DateTime.parse(json["published_at"]),
+        title: json["title"],
+        description: json["description"],
+        thumbnails: json["thumbnails"],
+        duration: json["duration"],
+        youtubeStatistics: YoutubeStatistics.fromJson(json["youtube_statistics"]),
+        appViewers: json["app_viewers"] == null ? null : json["app_viewers"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "published_at": publishedAt.toIso8601String(),
+        "title": title,
+        "description": description,
+        "thumbnails": thumbnails,
+        "duration": duration,
+        "youtube_statistics": youtubeStatistics.toJson(),
+        "app_viewers": appViewers == null ? null : appViewers,
+    };
+}
+
+class YoutubeStatistics {
+    YoutubeStatistics({
+        this.viewCount,
+        this.likeCount,
+        this.dislikeCount,
+        this.favoriteCount,
+        this.commentCount,
+    });
+
+    String viewCount;
+    String likeCount;
+    String dislikeCount;
+    String favoriteCount;
+    String commentCount;
+
+    factory YoutubeStatistics.fromJson(Map<String, dynamic> json) => YoutubeStatistics(
+        viewCount: json["viewCount"],
+        likeCount: json["likeCount"],
+        dislikeCount: json["dislikeCount"],
+        favoriteCount: json["favoriteCount"],
+        commentCount: json["commentCount"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "viewCount": viewCount,
+        "likeCount": likeCount,
+        "dislikeCount": dislikeCount,
+        "favoriteCount": favoriteCount,
+        "commentCount": commentCount,
+    };
+}
+
 class Info {
     Info({
         this.name,
         this.email,
         this.avatar,
         this.channelsCount,
+        this.videosCount,
         this.subscribers,
         this.subscribtions,
+        this.viewers,
+        this.views,
         this.balance,
     });
 
@@ -179,8 +266,11 @@ class Info {
     String email;
     String avatar;
     int channelsCount;
+    int videosCount;
     int subscribers;
     int subscribtions;
+    int viewers;
+    int views;
     String balance;
 
     factory Info.fromJson(Map<String, dynamic> json) => Info(
@@ -188,8 +278,11 @@ class Info {
         email: json["email"],
         avatar: json["avatar"],
         channelsCount: json["channels_count"],
+        videosCount: json["videos_count"],
         subscribers: json["subscribers"],
         subscribtions: json["subscribtions"],
+        viewers: json["viewers"],
+        views: json["views"],
         balance: json["balance"],
     );
 
@@ -198,8 +291,11 @@ class Info {
         "email": email,
         "avatar": avatar,
         "channels_count": channelsCount,
+        "videos_count": videosCount,
         "subscribers": subscribers,
         "subscribtions": subscribtions,
+        "viewers": viewers,
+        "views": views,
         "balance": balance,
     };
 }

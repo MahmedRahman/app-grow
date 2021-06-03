@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:grow/app/data/app_constand.dart';
 import 'package:get/get.dart';
+import 'package:grow/app/modules/youtubeview/controllers/youtubeview_controller.dart';
 import 'package:simple_timer/simple_timer.dart';
 
 class VedioView extends StatefulWidget {
@@ -32,6 +33,11 @@ class _VedioViewState extends State<VedioView> {
           timer.cancel();
 
           time.value = 'تم احتساب النقط';
+
+          YoutubeviewController controller = Get.put(YoutubeviewController());
+
+          controller.setViewVideosBalance(ViewVideoId: widget.Veidoid);
+          
         } else {
           time.value = (int.parse(time.value) - 1).toString();
         }

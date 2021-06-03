@@ -33,11 +33,11 @@ class ProfileView extends GetView<ProfileController> {
               
             },
             title: Text('Welcome'),
-            subtitle: Text('Mohamed Abd el Rahman'),
+            subtitle: Text('growapp21@gmail.com'),
             leading: CircleAvatar(
               backgroundColor: KprimaryColor,
               child: Text(
-                'M',
+                'G',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

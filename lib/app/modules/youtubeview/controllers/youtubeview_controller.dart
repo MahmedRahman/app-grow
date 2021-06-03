@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:grow/app/api/response_model.dart';
 import 'package:grow/app/api/web_serives.dart';
+import 'package:grow/app/data/app_constand.dart';
 import 'package:grow/app/modules/youtubeview/model/video_model.dart';
 
 class YoutubeviewController extends GetxController {
@@ -18,10 +19,6 @@ class YoutubeviewController extends GetxController {
     getViewVideosList();
   }
 
-
-
-
-
   getViewVideosList() async {
     ResponsModel responsModel = await WebServices().getViewVideosList();
 
@@ -33,5 +30,18 @@ class YoutubeviewController extends GetxController {
 
       VideoList.value = Future.value(viedo);
     }
+  }
+
+  setViewVideosBalance({String ViewVideoId}) async {
+    ResponsModel responsModel =
+        await WebServices().setViewVideosBalance(ViewVideoId: ViewVideoId);
+
+    if (responsModel.success) {
+      Response response = responsModel.data;
+   
+
+
+    }
+
   }
 }

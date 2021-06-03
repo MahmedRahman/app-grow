@@ -107,4 +107,15 @@ class WebServices extends APIManger {
     );
     return response;
   }
+
+
+  Future<ResponsModel> setViewVideosBalance({String ViewVideoId}) async {
+    ResponsModel response = await repPost(
+      'view_video/${ViewVideoId}',
+      showLoading: true,
+    );
+    return response;
+  }
+
+
 }

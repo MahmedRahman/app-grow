@@ -10,18 +10,15 @@ class ProfileController extends GetxController {
     super.onInit();
   }
 
-  Info PresonalInfo;
-  List<Balance> PresonalbalanceList;
-  List<Channel> Presonalchannels;
+  var PresonalInfoList = Future.value().obs;
 
   void getProfile() async {
     ResponsModel responsModel = await WebServices().getMyProfile();
     if (responsModel.success) {
       Response response = responsModel.data;
       final profileModel = profileModelFromJson(response.bodyString);
-      PresonalInfo = profileModel.data.info;
-      PresonalbalanceList = profileModel.data.balance;
-      Presonalchannels = profileModel.data.channels;
+      Info  presonalInfo = profileModel.data.info;
+      PresonalInfoList.value = Future.value(presonalInfo);
     }
   }
 }

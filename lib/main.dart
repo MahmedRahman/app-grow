@@ -6,7 +6,6 @@ import 'package:grow/app/data/app_constand.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
-  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -21,7 +20,7 @@ void main() async {
         scaffoldBackgroundColor: KaccentColor,
         fontFamily: 'Cairo',
       ),
-      builder: EasyLoading.init() ,
+      builder: EasyLoading.init(),
     ),
   );
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:grow/app/api/response_model.dart';
 import 'package:grow/app/api/web_serives.dart';
@@ -16,7 +17,9 @@ class YoutubeChannelVedioController extends GetxController {
 
   final count = 0.obs;
 
-  var channel ='';
+  var channel = '';
+
+  var category;
 
   @override
   void onInit() {
@@ -24,7 +27,6 @@ class YoutubeChannelVedioController extends GetxController {
   }
 
   getChannelViedoList(String channelID) async {
-
     channel = channelID;
 
     ResponsModel responseModel =
@@ -43,13 +45,36 @@ class YoutubeChannelVedioController extends GetxController {
     }
   }
 
-  setRegistered({String videoID}) async {
-    ResponsModel responseModel = await WebServices().setRegisterVideo(
-      videoID: videoID,
-    );
+  Future getCategory() async {
+    ResponsModel responseModel =
+        await WebServices().getCategories();
 
     if (responseModel.success) {
       Response response = responseModel.data;
+      categoriesItems.value = response.body['data'];
+      return response.body['data'];
+    }
+  }
+
+  Future getsubCategory({@required String subCategories}) async {
+    ResponsModel responseModel =
+        await WebServices().getSubCategories(sub_categories: subCategories);
+
+    if (responseModel.success) {
+      Response response = responseModel.data;
+      return response.body['data'];
+    }
+  }
+
+  setRegistered({String videoID}) async {
+    ResponsModel responseModel = await WebServices()
+        .setRegisterVideo(videoID: videoID, category: category);
+
+    if (responseModel.success) {
+      Response response = responseModel.data;
+
+print(response.bodyString);
+
       if (response.body['success']) {
         Get.snackbar(AppName, 'تم تسجيل الفيديو');
         getChannelViedoList(channel);
@@ -58,15 +83,14 @@ class YoutubeChannelVedioController extends GetxController {
   }
 
   setUnRegistered({String videoID}) async {
-    ResponsModel responseModel = await WebServices().setUnRegisterVideo(
-      videoID: videoID,
-    );
+    ResponsModel responseModel = await WebServices()
+        .setUnRegisterVideo(videoID: videoID, category: category);
 
     if (responseModel.success) {
       Response response = responseModel.data;
       if (response.body['success']) {
         Get.snackbar(AppName, 'تم الغاء تسجيل الفيديو');
-         getChannelViedoList(channel);
+        getChannelViedoList(channel);
       }
     }
   }

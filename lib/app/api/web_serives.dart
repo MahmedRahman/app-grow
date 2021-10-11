@@ -5,10 +5,35 @@ import 'package:grow/app/api/response_model.dart';
 import 'package:grow/app/data/app_constand.dart';
 
 class WebServices extends APIManger {
+  Future<ResponsModel> getGoogleLogin({
+    String name,
+    String email,
+    String avatar,
+  }) async {
+    ResponsModel response = await repPost('google_login', body: {
+      'refresh_token': KuserTokan,
+      'name': name,
+      'email': email,
+      'avatar': avatar
+    });
+    return response;
+  }
+
   Future<ResponsModel> getChannelsList() async {
     ResponsModel response = await repPost('channels_list');
     return response;
   }
+
+  Future<ResponsModel> getCategories() async {
+    ResponsModel response = await repGet('categories');
+    return response;
+  }
+
+  Future<ResponsModel> getCategoryDetailes({@required String id}) async {
+    ResponsModel response = await repGet('category/$id');
+    return response;
+  }
+
 
   Future<ResponsModel> getChannelsVideoList() async {
     ResponsModel response = await repPost('channel_info');
@@ -22,8 +47,7 @@ class WebServices extends APIManger {
   }
 
   Future<ResponsModel> getShowPakcages() async {
-    ResponsModel response =
-        await repPost('packages/${KtypePakcages}', showLoading: true);
+    ResponsModel response = await repPost('packages', showLoading: true);
     return response;
   }
 
@@ -78,23 +102,35 @@ class WebServices extends APIManger {
     return response;
   }
 
-  Future<ResponsModel> setRegisterVideo({String videoID}) async {
+  Future<ResponsModel> setRegisterVideo({String videoID, String category}) async {
     ResponsModel response = await repPost(
       'register_video',
       body: {
         'video': videoID,
+         'category': category,
       },
       showLoading: true,
     );
     return response;
   }
 
-  Future<ResponsModel> setUnRegisterVideo({String videoID}) async {
+  Future<ResponsModel> setUnRegisterVideo({String videoID , String category}) async {
     ResponsModel response = await repPost(
       'unregister_video',
       body: {
         'video': videoID,
+          'category': category,
       },
+      showLoading: true,
+    );
+    return response;
+  }
+
+
+
+  Future<ResponsModel> getSubCategories({@required sub_categories}) async {
+    ResponsModel response = await repGet(
+      'sub_categories/${sub_categories}',
       showLoading: true,
     );
     return response;
@@ -108,7 +144,6 @@ class WebServices extends APIManger {
     return response;
   }
 
-
   Future<ResponsModel> setViewVideosBalance({String ViewVideoId}) async {
     ResponsModel response = await repPost(
       'view_video/${ViewVideoId}',
@@ -116,6 +151,4 @@ class WebServices extends APIManger {
     );
     return response;
   }
-
-
 }

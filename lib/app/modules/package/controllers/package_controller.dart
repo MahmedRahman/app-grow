@@ -10,7 +10,6 @@ class PackageController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-   
   }
 
   var pakcageslList = Future.value().obs;

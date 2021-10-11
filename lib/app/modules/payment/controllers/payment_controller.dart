@@ -9,12 +9,10 @@ class PaymentController extends GetxController {
   var paymentList = Future.value().obs;
 
   final count = 0.obs;
-
   
   @override
   void onInit() {
     super.onInit();
-    getMyPackages();
   }
 
   void getMyPackages() async {

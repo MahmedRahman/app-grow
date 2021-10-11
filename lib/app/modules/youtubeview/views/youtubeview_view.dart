@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:grow/app/component/CustomImageCached.dart';
+import 'package:grow/app/data/componate.dart';
 import 'package:grow/app/modules/youtubeview/model/video_model.dart';
 import 'package:grow/app/modules/youtubeview/views/view_veido.dart';
 
@@ -12,11 +14,13 @@ class YoutubeviewView extends GetView<YoutubeviewController> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     controller.getViewVideosList();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('View Youtube Viedo'),
-        centerTitle: true,
+      appBar: defualtappBar(
+        title: 'View Youtube Viedo',
       ),
       body: Obx(() {
         return FutureBuilder(

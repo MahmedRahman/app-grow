@@ -1,16 +1,21 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:grow/app/api/response_model.dart';
+import 'package:grow/app/api/web_serives.dart';
 import 'package:grow/app/data/app_constand.dart';
 import 'package:grow/app/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../controllers/auth_splash_controller.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:grow/app/data/app_constand.dart';
 
 class AuthSplashView extends GetView<AuthSplashController> {
   final googleSignIn = GoogleSignIn();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,101 +26,47 @@ class AuthSplashView extends GetView<AuthSplashController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Image.asset('images/logo2.png'),
-              SizedBox(
-                height: Get.height * .1,
-              ),
-              SizedBox(
-                width: Get.width,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.AUTH_SIGNUP);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: KprimaryColor,
-                  ),
-                  child: Text(
-                    'Signup',
-                    style: TextStyle(
-                      color: KaccentColor,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                width: Get.width,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.AUTH_LOGIN);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: KprimaryColor,
-                  ),
-                  child: Text(
-                    'login',
-                    style: TextStyle(
-                      color: KaccentColor,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
+              Expanded(
+                child: Image.asset('images/logo2.png'),
               ),
               SizedBox(
                 width: Get.width,
                 height: 60,
                 child: ElevatedButton.icon(
                   onPressed: () async {
-                    googleSignIn.requestScopes(
-                      [
-                        //'https://www.googleapis.com/auth/youtubepartner',
-                        'https://www.googleapis.com/auth/youtube',
-                        //'https://www.googleapis.com/auth/youtube.force-ssl'
-                      ],
-                    );
+                    await GoogleSignIn().signOut().then((value) {
+                      EasyLoading.show(status: 'Loading ...');
 
-                    final user = await googleSignIn.signIn();
+                      signInWithGoogle().then(
+                        (googleuser) {
+                          WebServices()
+                              .getGoogleLogin(
+                            name: googleuser.user.displayName,
+                            email: googleuser.user.email,
+                            avatar: googleuser.user.photoURL,
+                          )
+                              .then((value) {
+                            Response response = value.data;
+                            KuserYoutubeTokan =
+                                response.body['data']['access_token'];
 
-                    if (user == null) {
-                      // isSigningIn = false;
-                      print('Wrong');
-                      return;
-                    } else {
-                      final googleAuth = await user.authentication;
-                      final credential = GoogleAuthProvider.credential(
-                        accessToken: googleAuth.accessToken,
-                        idToken: googleAuth.idToken,
+                            print(KuserYoutubeTokan);
+
+                            EasyLoading.dismiss();
+                            Get.offAllNamed(Routes.LAYOUT);
+                          }).onError((error, stackTrace) {
+                            EasyLoading.dismiss();
+                          });
+                        },
+                        onError: (err) {
+                          EasyLoading.dismiss();
+                        },
                       );
-                      await FirebaseAuth.instance
-                          .signInWithCredential(credential);
-
-
-                      //print('accessToken ${googleAuth.}');
-
-                      print('accessToken ${googleAuth.accessToken}');
-                      print('serverAuthCode ${googleAuth.serverAuthCode}');
-                      print('scopes ${googleSignIn.scopes}');
-                      print('idToken :${googleAuth.idToken}');
-                             //  print('idToken :${googleAuth.}');
-     //print('email :${user}');
-                      print('email :${user.email}');
-                      print('email :${user.displayName}');
-                      print('email :${user.photoUrl}');
-
-                      print('Done');
-
-                      Get.toNamed(Routes.LAYOUT);
-                    }
+                    });
                   },
                   icon: Image.asset('images/gmail_icon.png'),
                   label: Text(
-                    'Login with Gmail',
+                    'Login with Gmail'.tr,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -123,13 +74,9 @@ class AuthSplashView extends GetView<AuthSplashController> {
                   style: ElevatedButton.styleFrom(primary: Colors.red),
                 ),
               ),
-              TextButton(
-                onPressed: () async {
-                  await googleSignIn.disconnect();
-                  FirebaseAuth.instance.signOut();
-                },
-                child: Text('signOut'),
-              )
+              SizedBox(
+                height: 30,
+              ),
             ],
           ),
         ),
@@ -138,8 +85,14 @@ class AuthSplashView extends GetView<AuthSplashController> {
   }
 
   Future<UserCredential> signInWithGoogle() async {
+    googleSignIn.requestScopes(
+      [
+        'https://www.googleapis.com/auth/youtube',
+      ],
+    );
+
     // Trigger the authentication flow
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount googleUser = await googleSignIn.signIn();
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication googleAuth =
@@ -150,6 +103,14 @@ class AuthSplashView extends GetView<AuthSplashController> {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
+
+    //print('accessToken : ${googleAuth.accessToken}');
+    //print('idToken : ${googleAuth.idToken}');
+
+    KuserTokan = googleAuth.accessToken;
+
+    //print('Googel Tokan');
+    //print(googleAuth.accessToken);
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);

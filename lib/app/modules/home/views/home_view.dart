@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:grow/app/data/app_constand.dart';
+import 'package:grow/app/data/componate.dart';
+import 'package:grow/app/modules/category/views/category_view.dart';
 import 'package:grow/app/modules/package/views/package_view.dart';
 import 'package:grow/app/modules/youtube/channels/views/youtube_channels_view.dart';
 import 'package:grow/app/modules/youtubeview/views/youtubeview_view.dart';
@@ -11,50 +13,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  List<String> ServicesBaner = [
-    'images/youtube_baner.png',
-  ];
-
-  List<String> ServicesLogo = [
-    'images/yt.png',
-  ];
-
-  List<String> youtube = [
-    'Buy YouTube Subscribers',
-    'Buy YouTube views',
-  ];
-
-  List<String> youtube_earn = [
-    'Subscribe',
-    'views',
-  ];
-
-  List<String> instagram = [
-    'Buy Followers On Instagram',
-    'Buy Instagram Views',
-    'Buy Instagram Comments',
-  ];
-
-  List<String> facebook = [
-    'Buy Facebook Likes',
-    'Buy Facebook Page Likes',
-    'Buy Facebook Views',
-    'Buy Facebook 5 Star Ratings',
-  ];
-
   static var selectIndex = 0.obs;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'G R O W',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
+      appBar: defualtappBar(
+        title: 'G R O W',
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -62,11 +26,10 @@ class HomeView extends GetView<HomeController> {
           children: [
             SizedBox(
               width: Get.width,
-              child: Image.asset('images/baner.png'),
+              child: Image.asset('images/baner.jpg'),
             ),
             Text(
-              'What do you need most ?',
-              textAlign: TextAlign.left,
+              'What do you need most ?'.tr,
               style: styleTextTitle.copyWith(fontSize: 16),
             ),
             Padding(
@@ -74,23 +37,26 @@ class HomeView extends GetView<HomeController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  NeedBnt('images/trend.svg', 'Account Grow', 0),
-                  NeedBnt('images/money.svg', 'Earn Money', 1),
+                  NeedBnt('images/trend.svg', 'Account Grow'.tr, 0),
+                  NeedBnt('images/money.svg', 'Earn Money'.tr, 1),
                 ],
               ),
             ),
             SizedBox(
               width: Get.width,
               child: Text(
-                'Social Media Services',
-                textAlign: TextAlign.left,
+                'Social Media Services'.tr,
                 style: styleTextTitle.copyWith(fontSize: 16),
               ),
             ),
             Container(
-              color: KprimaryColor.withOpacity(.6),
+              decoration: BoxDecoration(
+                color: KprimaryColor.withOpacity(.6),
+                image: DecorationImage(
+                    image: AssetImage('images/bg_title.png'), fit: BoxFit.fill),
+              ),
               child: ExpansionTile(
-                backgroundColor: KaccentColor,
+                //backgroundColor: KaccentColor,
                 trailing: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(
@@ -124,23 +90,10 @@ class HomeView extends GetView<HomeController> {
                                         ),
                                       );
                                     },
-                                    title: Text('Buy YouTube Subscribers'),
+                                    title: Text(
+                                        'Buy YouTube views - Subscribers'.tr),
                                     leading: Icon(Icons.youtube_searched_for),
                                   ),
-                                  ListTile(
-                                    onTap: () {
-                                      KtypePakcages = "views";
-                                      Navigator.push(
-                                        context,
-                                        new MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              new PackageView(),
-                                        ),
-                                      );
-                                    },
-                                    title: Text('Buy YouTube views'),
-                                    leading: Icon(Icons.youtube_searched_for),
-                                  )
                                 ],
                               )
                             : Column(
@@ -155,20 +108,21 @@ class HomeView extends GetView<HomeController> {
                                         ),
                                       );
                                     },
-                                    title: Text('Subscribe'),
+                                    title: Text('Subscribe'.tr),
                                   ),
-                                  ListTile(
+                                 ListTile(
                                     onTap: () {
                                       Navigator.push(
                                         context,
                                         new MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              new YoutubeviewView(),
+                                              new CategoryView(),
                                         ),
                                       );
                                     },
-                                    title: Text('views'),
+                                    title: Text('views'.tr),
                                   )
+                              
                                 ],
                               );
                       },
@@ -177,6 +131,193 @@ class HomeView extends GetView<HomeController> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 5,
+            ),
+         
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('images/bg_title.png'), fit: BoxFit.fill),
+              ),
+              child: ExpansionTile(
+                backgroundColor: KaccentColor,
+                trailing: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.arrow_drop_down_circle_outlined,
+                    size: 32,
+                  ),
+                ),
+                title: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: SizedBox(
+                    height: 40,
+                    child: Image.asset('images/facebook_baner.png'),
+                  ),
+                ),
+                children: [
+                  Container(
+                    color: Colors.white,
+                    width: Get.width,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: Text(
+                        'coming soon',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+         
+         
+              SizedBox(
+              height: 5,
+            ),
+         
+         
+            Container(
+              decoration: BoxDecoration(
+                color: KprimaryColor.withOpacity(.6),
+                image: DecorationImage(
+                    image: AssetImage('images/bg_title.png'), fit: BoxFit.fill),
+              ),
+              child: ExpansionTile(
+                trailing: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.arrow_drop_down_circle_outlined,
+                    size: 32,
+                  ),
+                ),
+                title: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: SizedBox(
+                    height: 40,
+                    child: Image.asset('images/instagram_banner.png'),
+                  ),
+                ),
+                children: [
+                  Container(
+                    color: Colors.white,
+                    width: Get.width,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: Text(
+                        'coming soon',
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            
+            
+            Container(
+              decoration: BoxDecoration(
+                color: KprimaryColor.withOpacity(.6),
+                image: DecorationImage(
+                    image: AssetImage('images/bg_title.png'), fit: BoxFit.fill),
+              ),
+              child: ExpansionTile(
+                trailing: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.arrow_drop_down_circle_outlined,
+                    size: 32,
+                  ),
+                ),
+                title: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: SizedBox(
+                    height: 40,
+                    child: Image.asset('images/snapchat.png'),
+                  ),
+                ),
+                children: [
+                  Container(
+                    color: Colors.white,
+                    width: Get.width,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: Text(
+                        'coming soon',
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+
+            
+            
+            Container(
+              decoration: BoxDecoration(
+                color: KprimaryColor.withOpacity(.6),
+                image: DecorationImage(
+                    image: AssetImage('images/bg_title.png'), fit: BoxFit.fill),
+              ),
+              child: ExpansionTile(
+                trailing: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.arrow_drop_down_circle_outlined,
+                    size: 32,
+                  ),
+                ),
+                title: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: SizedBox(
+                    height: 40,
+                    child: Image.asset('images/tiktok.png'),
+                  ),
+                ),
+                children: [
+                  Container(
+                    color: Colors.white,
+                    width: Get.width,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: Text(
+                        'coming soon',
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+
+
+
+
+
+
+
+           
             Features(),
           ],
         ),
@@ -194,7 +335,10 @@ class HomeView extends GetView<HomeController> {
           child: Container(
             decoration: selectIndex.value == index
                 ? BoxDecoration(
-                    color: KprimaryColor,
+                    image: DecorationImage(
+                      image: AssetImage('images/bg.png'),
+                      fit: BoxFit.fill,
+                    ),
                     borderRadius: BorderRadius.circular(15),
                   )
                 : BoxDecoration(),
@@ -303,8 +447,7 @@ class HomeView extends GetView<HomeController> {
         SizedBox(
           width: Get.width,
           child: Text(
-            'Unique Features',
-            textAlign: TextAlign.left,
+            'Unique Features'.tr,
             style: styleTextTitle.copyWith(
               fontSize: 16,
               color: KScandtColor,
@@ -323,20 +466,27 @@ class HomeView extends GetView<HomeController> {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Color(0xffFFF8DE),
+                      //color: Color(0xffFFF8DE),
                       border: Border.all(color: KprimaryColor),
+                      image: DecorationImage(
+                        image: AssetImage('images/bg_title.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                     child: SizedBox(
                       width: 50,
                       height: 100,
-                      child: Image.asset('images/followers.png'),
+                      child: Image.asset(
+                        'images/followers.png',
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 5,
                   ),
                   Text(
-                    'Fast time',
+                    'registration'.tr,
                     style: styleTextSubTitle.copyWith(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -358,18 +508,25 @@ class HomeView extends GetView<HomeController> {
                     decoration: BoxDecoration(
                       color: Color(0xffFFF8DE),
                       border: Border.all(color: KprimaryColor),
+                      image: DecorationImage(
+                        image: AssetImage('images/bg_title.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                     child: SizedBox(
                       width: 50,
                       height: 100,
-                      child: Image.asset('images/fast-delivery.png'),
+                      child: Image.asset(
+                        'images/fast-delivery.png',
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 5,
                   ),
                   Text(
-                    'Fast time',
+                    ' Fast time'.tr,
                     style: styleTextSubTitle.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -390,18 +547,25 @@ class HomeView extends GetView<HomeController> {
                     decoration: BoxDecoration(
                       color: Color(0xffFFF8DE),
                       border: Border.all(color: KprimaryColor),
+                      image: DecorationImage(
+                        image: AssetImage('images/bg_title.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                     child: SizedBox(
                       width: 50,
                       height: 100,
-                      child: Image.asset('images/dollar.png'),
+                      child: Image.asset(
+                        'images/dollar.png',
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: 5,
                   ),
                   Text(
-                    'Fast time',
+                    'money'.tr,
                     style: styleTextSubTitle.copyWith(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,

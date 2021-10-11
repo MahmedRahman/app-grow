@@ -12,13 +12,26 @@ class ProfileDetailesView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     controller.getProfile();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            )),
-        centerTitle: true,
+      appBar: PreferredSize(
+        child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            image: AssetImage('images/bg_title.png'),
+            fit: BoxFit.fill,
+          )),
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            title: Text(
+              'Profile'.tr,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            centerTitle: true,
+          ),
+        ),
+        preferredSize: Size.fromHeight(60),
       ),
       body: Obx(
         () {
@@ -32,26 +45,17 @@ class ProfileDetailesView extends GetView<ProfileController> {
                 return SizedBox(
                   width: Get.width,
                   child: ListView(
-                  
                     children: [
                       SizedBox(
                         height: 20,
                       ),
-                      CircleAvatar(
-                        backgroundColor: KprimaryColor,
-                        backgroundImage: NetworkImage(presonalInfo.avatar),
-                        
-                        child: Text(
-                          'G',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                        radius: 40,
+                      Image.network(
+                        presonalInfo.avatar,
+                        height: 100,
+                        fit: BoxFit.contain,
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Text(
                         '${presonalInfo.name}',
@@ -60,7 +64,8 @@ class ProfileDetailesView extends GetView<ProfileController> {
                           fontSize: 14,
                         ),
                         textAlign: TextAlign.center,
-                      ),SizedBox(
+                      ),
+                      SizedBox(
                         height: 10,
                       ),
                       Text(
@@ -68,12 +73,12 @@ class ProfileDetailesView extends GetView<ProfileController> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
-                        ),textAlign: TextAlign.center,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                       SizedBox(
                         height: 40,
                       ),
-                   
                       Row(
                         children: [
                           SizedBox(
@@ -82,6 +87,10 @@ class ProfileDetailesView extends GetView<ProfileController> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('images/bg_title.png'),
+                                  fit: BoxFit.fill,
+                                ),
                                 color: KprimaryColor,
                               ),
                               child: Padding(
@@ -91,7 +100,7 @@ class ProfileDetailesView extends GetView<ProfileController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Channels Count',
+                                      'Channels Count'.tr,
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -115,6 +124,10 @@ class ProfileDetailesView extends GetView<ProfileController> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('images/bg_title.png'),
+                                  fit: BoxFit.fill,
+                                ),
                                 color: KprimaryColor,
                               ),
                               child: Padding(
@@ -124,7 +137,7 @@ class ProfileDetailesView extends GetView<ProfileController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Videos Count',
+                                      'Videos Count'.tr,
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -147,8 +160,6 @@ class ProfileDetailesView extends GetView<ProfileController> {
                           ),
                         ],
                       ),
-                  
-                  
                       SizedBox(
                         height: 20,
                       ),
@@ -160,6 +171,10 @@ class ProfileDetailesView extends GetView<ProfileController> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('images/bg_title.png'),
+                                  fit: BoxFit.fill,
+                                ),
                                 color: KprimaryColor,
                               ),
                               child: Padding(
@@ -170,7 +185,7 @@ class ProfileDetailesView extends GetView<ProfileController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'subscribers',
+                                      'Subscription'.tr,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
@@ -196,6 +211,10 @@ class ProfileDetailesView extends GetView<ProfileController> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('images/bg_title.png'),
+                                  fit: BoxFit.fill,
+                                ),
                                 color: KprimaryColor,
                               ),
                               child: Padding(
@@ -206,7 +225,7 @@ class ProfileDetailesView extends GetView<ProfileController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'subscribtions',
+                                      'subscriber'.tr,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
@@ -242,6 +261,10 @@ class ProfileDetailesView extends GetView<ProfileController> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('images/bg_title.png'),
+                                  fit: BoxFit.fill,
+                                ),
                                 color: KprimaryColor,
                               ),
                               child: Padding(
@@ -252,7 +275,7 @@ class ProfileDetailesView extends GetView<ProfileController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'viewers',
+                                      'viewers'.tr,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
@@ -278,6 +301,10 @@ class ProfileDetailesView extends GetView<ProfileController> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('images/bg_title.png'),
+                                  fit: BoxFit.fill,
+                                ),
                                 color: KprimaryColor,
                               ),
                               child: Padding(
@@ -288,7 +315,7 @@ class ProfileDetailesView extends GetView<ProfileController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'views',
+                                      'views'.tr,
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
@@ -316,19 +343,18 @@ class ProfileDetailesView extends GetView<ProfileController> {
                       SizedBox(
                         height: 20,
                       ),
-
-              
-                   
                       Row(
                         children: [
-                   
-                      
                           SizedBox(
                             width: 10,
                           ),
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage('images/bg_title.png'),
+                                  fit: BoxFit.fill,
+                                ),
                                 color: KprimaryColor,
                               ),
                               child: Padding(
@@ -338,7 +364,7 @@ class ProfileDetailesView extends GetView<ProfileController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'balance',
+                                      'balance'.tr,
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 20,
@@ -361,8 +387,6 @@ class ProfileDetailesView extends GetView<ProfileController> {
                           ),
                         ],
                       ),
-                  
-                 
                     ],
                   ),
                 );

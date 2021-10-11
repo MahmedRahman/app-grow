@@ -1,38 +1,33 @@
-
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:grow/app/data/app_constand.dart';
+import 'package:grow/app/data/componate.dart';
 import 'package:grow/app/modules/home/views/home_view.dart';
 import 'package:grow/app/modules/package/model/package_model.dart';
 
 import '../controllers/checkout_controller.dart';
 
 class CheckoutView extends GetView<CheckoutController> {
-/////////////////////////////
   Package package;
   CheckoutView(this.package);
   CheckoutController controller = Get.put(CheckoutController());
-  /////////////////////
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Checkout'),
-        centerTitle: true,
+      appBar: defualtappBar(
+        title: 'Checkout'.tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: ListView(
           children: [
-       
-       
             SizedBox(
               height: 5,
             ),
             Text(
-              '  Your Copon Code',
+              'Your coupon code'.tr,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             ),
             SizedBox(
@@ -46,7 +41,7 @@ class CheckoutView extends GetView<CheckoutController> {
                     child: TextFormField(
                       decoration: InputDecoration(
                         isDense: true,
-                        hintText: ' copon code',
+                        hintText: 'Coupon'.tr,
                         border: OutlineInputBorder(
                           borderSide: BorderSide(color: KprimaryColor),
                         ),
@@ -62,7 +57,7 @@ class CheckoutView extends GetView<CheckoutController> {
                       style: ElevatedButton.styleFrom(primary: KprimaryColor),
                       onPressed: () {},
                       child: Text(
-                        'Done',
+                        'Done'.tr,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -81,7 +76,7 @@ class CheckoutView extends GetView<CheckoutController> {
                       height: 5,
                     ),
                     Text(
-                      '${package.target}',
+                      '${package.title}',
                       style: styleTextPackage.copyWith(fontSize: 16),
                     ),
                     Padding(
@@ -122,7 +117,7 @@ class CheckoutView extends GetView<CheckoutController> {
                       height: 10,
                     ),
                     Text(
-                      'Totall : ${package.price} L.E',
+                      'Total : ${package.price} L.E',
                       style: styleTextPackage.copyWith(fontSize: 16),
                     )
                   ],
@@ -143,9 +138,9 @@ class CheckoutView extends GetView<CheckoutController> {
             ),
             ElevatedButton(
               onPressed: () {
-                controller.setPackageSubscribe(package.id.toString(),context);
+                controller.setPackageSubscribe(package.id.toString(), context);
               },
-              child: Text('Complete Your Order'),
+              child: Text('Complete Your Order'.tr),
               style: ElevatedButton.styleFrom(primary: KprimaryColor),
             )
           ],

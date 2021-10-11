@@ -18,6 +18,10 @@ abstract class Routes {
   static const YOUTUBE_CHANNEL_VEDIO = _Paths.YOUTUBE_CHANNEL_VEDIO;
   static const YOUTUBE_MY_CHANNELS = _Paths.YOUTUBE_MY_CHANNELS;
   static const YOUTUBEVIEW = _Paths.YOUTUBEVIEW;
+  static const CATEGORY = _Paths.CATEGORY;
+  static const CATEGORY_DETAIL = _Paths.CATEGORY_DETAIL;
+  static const CATEGORY_VIDEO = _Paths.CATEGORY_VIDEO;
+  static const PRIVACY = _Paths.PRIVACY;
 }
 
 abstract class _Paths {
@@ -37,4 +41,8 @@ abstract class _Paths {
   static const YOUTUBE_CHANNEL_VEDIO = '/channel-vedio';
   static const YOUTUBE_MY_CHANNELS = '/my-channels';
   static const YOUTUBEVIEW = '/youtubeview';
+  static const CATEGORY = '/category';
+  static const CATEGORY_DETAIL = '/category-detail';
+  static const CATEGORY_VIDEO = '/category-video';
+  static const PRIVACY = '/privacy';
 }

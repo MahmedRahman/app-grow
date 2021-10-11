@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:grow/app/modules/Privacy/bindings/privacy_binding.dart';
+import 'package:grow/app/modules/Privacy/views/privacy_view.dart';
 import 'package:grow/app/modules/auth/forget/bindings/auth_forget_binding.dart';
 import 'package:grow/app/modules/auth/forget/views/auth_forget_view.dart';
 import 'package:grow/app/modules/auth/login/bindings/auth_login_binding.dart';
@@ -8,6 +10,12 @@ import 'package:grow/app/modules/auth/signup/bindings/auth_signup_binding.dart';
 import 'package:grow/app/modules/auth/signup/views/auth_signup_view.dart';
 import 'package:grow/app/modules/auth/splash/bindings/auth_splash_binding.dart';
 import 'package:grow/app/modules/auth/splash/views/auth_splash_view.dart';
+import 'package:grow/app/modules/category/bindings/category_binding.dart';
+import 'package:grow/app/modules/category/views/category_view.dart';
+import 'package:grow/app/modules/category_detail/bindings/category_detail_binding.dart';
+import 'package:grow/app/modules/category_detail/views/category_detail_view.dart';
+import 'package:grow/app/modules/category_video/bindings/category_video_binding.dart';
+import 'package:grow/app/modules/category_video/views/category_video_view.dart';
 import 'package:grow/app/modules/checkout/bindings/checkout_binding.dart';
 import 'package:grow/app/modules/checkout/views/checkout_view.dart';
 import 'package:grow/app/modules/home/bindings/home_binding.dart';
@@ -22,8 +30,6 @@ import 'package:grow/app/modules/payment/bindings/payment_binding.dart';
 import 'package:grow/app/modules/payment/views/payment_view.dart';
 import 'package:grow/app/modules/profile/bindings/profile_binding.dart';
 import 'package:grow/app/modules/profile/views/profile_view.dart';
-import 'package:grow/app/modules/settings/bindings/settings_binding.dart';
-import 'package:grow/app/modules/settings/views/settings_view.dart';
 import 'package:grow/app/modules/youtube/channelVedio/bindings/youtube_channel_vedio_binding.dart';
 import 'package:grow/app/modules/youtube/channelVedio/views/youtube_channel_vedio_view.dart';
 import 'package:grow/app/modules/youtube/channels/bindings/youtube_channels_binding.dart';
@@ -92,11 +98,6 @@ class AppPages {
       binding: AuthForgetBinding(),
     ),
     GetPage(
-      name: _Paths.SETTINGS,
-      page: () => SettingsView(),
-      binding: SettingsBinding(),
-    ),
-    GetPage(
       name: _Paths.YOUTUBE_CHANNELS,
       page: () => YoutubeChannelsView(),
       binding: YoutubeChannelsBinding(),
@@ -115,6 +116,26 @@ class AppPages {
       name: _Paths.YOUTUBEVIEW,
       page: () => YoutubeviewView(),
       binding: YoutubeviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.CATEGORY,
+      page: () => CategoryView(),
+      binding: CategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.CATEGORY_DETAIL,
+      page: () => CategoryDetailView(),
+      binding: CategoryDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.CATEGORY_VIDEO,
+      page: () => CategoryVideoView(),
+      binding: CategoryVideoBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRIVACY,
+      page: () => PrivacyView(),
+      binding: PrivacyBinding(),
     ),
   ];
 }

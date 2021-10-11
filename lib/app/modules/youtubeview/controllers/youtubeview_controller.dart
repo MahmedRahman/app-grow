@@ -13,10 +13,12 @@ class YoutubeviewController extends GetxController {
 
   var VideoList = Future.value().obs;
 
+  var msg = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
-    getViewVideosList();
+
   }
 
   getViewVideosList() async {
@@ -24,7 +26,7 @@ class YoutubeviewController extends GetxController {
 
     if (responsModel.success) {
       Response response = responsModel.data;
-      print(jsonDecode(response.bodyString));
+     // print(jsonDecode(response.bodyString));
 
       Viedo viedo = Viedo.fromJson(jsonDecode(response.bodyString));
 
@@ -32,16 +34,16 @@ class YoutubeviewController extends GetxController {
     }
   }
 
-  setViewVideosBalance({String ViewVideoId}) async {
+  Future<String> setViewVideosBalance({String ViewVideoId}) async {
     ResponsModel responsModel =
         await WebServices().setViewVideosBalance(ViewVideoId: ViewVideoId);
 
     if (responsModel.success) {
       Response response = responsModel.data;
-   
 
-
+      return response.body['data'];
+    } else {
+      return 'Errro';
     }
-
   }
 }

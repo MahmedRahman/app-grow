@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
+    flutterVersionCode = '4'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '4.0'
 }
 
 apply plugin: 'com.android.application'
@@ -35,12 +35,11 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.matrix.grow"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
         multiDexEnabled true
-
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 10
+        versionName "Logo"
     }
 
     buildTypes {

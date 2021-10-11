@@ -20,7 +20,10 @@ class YoutubeMyChannelsController extends GetxController {
       Response response = responsModel.data;
       if (response.body['success']) {
         final channelListModel = channelListModelFromJson(response.bodyString);
-        print(channelListModel.data.first.title);
+
+
+
+        //print(channelListModel.data.first.title);
         youtubeChannelsList.value = Future.value(channelListModel.data);
       }
     }

@@ -1,29 +1,29 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/connect.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:grow/app/api/response_model.dart';
+import 'package:grow/app/data/app_constand.dart';
 
-String baes_url = 'https://dev.matrixclouds.com/growapp/public/api/';
-String api_key = 'growapp_api_key';
-String Language = 'ar';
-const Kyoutube_token =
-    "ya29.a0AfH6SMBc9YZhde2ZRX0-rRihte2v7YJWJfk4nLxu_EDgadripJHCHzA12iJF0DWAfM228uGjBoebguFUovGpp2DxXTenM0ICLubXQj4PoZ933DZzuGEpKRo6nKXIrhB1S2rXhyZl8ZfMlBU8NCVNSsswgbBh";
+String baesUrl = 'https://grow-app.net/api/';
+String apiKey = 'growapp_api_key';
+String language = 'ar';
+
+var apiBody = '';
+
+final header = {
+  'x-api-key': apiKey,
+  'Content-Language': language,
+  'Authorization': 'Bearer ',
+};
 
 class APIManger extends GetConnect {
-  
-  final header = {
-    'x-api-key': api_key,
-    'Authorization': 'Bearer ',
-    'Content-type': 'application/json',
-    'Accept': 'application/json'
-  };
-
-  void login() {
-    String tokan =
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMzNiYTYwMGU4NTE4YzdjZGZjYmFkZWYwZmM2MTlmZmZjNDEzOWRkYTA4MTJiZDRmNDY3NDQ4M2Y5YzIxODY4Y2FkZmJiYzczNjU2Yzg3MjciLCJpYXQiOjE2MjAzMDg5MjMuMTY2MzYzOTU0NTQ0MDY3MzgyODEyNSwibmJmIjoxNjIwMzA4OTIzLjE2NjM2NzA1Mzk4NTU5NTcwMzEyNSwiZXhwIjoxNjUxODQ0OTIzLjE2MTc2Nzk1OTU5NDcyNjU2MjUsInN1YiI6IjUiLCJzY29wZXMiOltdfQ.VvjQ0WN_rpnG2F9kRFNKytZTXpH1LEf68c_SP7vdod5-IQG6UdvZXiSN3FZqn4pPp5-guXZ-4H_XGxsAxqt8TmNAecQxsdRa_sqj7ulgo2EzBa1IIwfAnDHsHOqb2eVal1ePso4EcbfdRNCoe56Etd3mQstsxuWGBnBCVl_Hs3NTIlHneqACumebcT7LffvfM-XB11Wc16ZO00eUOI6yI0w7ijAdG2gY1f_jUH0WPq5oaXy1NtPhBJ-WnRt2ifvqFdk-Z-BCnNKMTlA1bbvNtGGLZzZPpfzyrPBp_6YmXguSm5x3ySN36GbPmyhBlY6bRnYw8ZMiG0VuoUNgIt4WpYQNwrujPp4bJnf0cn3D5TKa1gPbSYpI7c9Lr9c5TgqRmldI6mGz1hmTusuQu8Pd9YPUXBVX4WeWnztRlc9mHr4BsGcStoID4WAq6hAnmXLbiWxBbPPeDJAJfHd9qtJnYEfaFOFStp1uPJa0OOHpBqxO8LGoabHqTfjMwsr9bdLL2NP_awCOYEYAD5SKXfpilQgj0RLxNsOxmCl7ns2elegyJJOfSh3-4ibHGG8NJH3Y27fH8QpaX_oAEa18XV0rDwEhDoCbfbV_y9-ZWkvhiMpxQJFxl7rLK8vWBLLAjogPZxHtpNG9-d_Ce7cotUE0ulCiT3O_h2pwJKCH7PKP-Gc';
+  authorization() {
+    String tokan = KuserYoutubeTokan;
 
     if (tokan != null) {
       header.update(
@@ -36,182 +36,179 @@ class APIManger extends GetConnect {
   }
 
   Future<ResponsModel> repPost(url, {body, bool showLoading = false}) async {
-    if (showLoading) {
-      EasyLoading.show(status: 'Loading ...');
-    }
+    url = baesUrl + url;
+    apiBody = body.toString();
+    authorization();
 
-    login();
+    showLoading
+        ? EasyLoading.show(status: 'جارى التحميل ...')
+        : SizedBox.shrink();
 
-    Response response = await post(baes_url + url, body, headers: header);
+    print("Api Request Post $url ");
 
-    print("Api Request $baes_url$url ${response.statusCode} ");
+    Response response = await post(
+      url,
+      body,
+      headers: header,
+    );
 
-    try {
-      switch (response.statusCode) {
-        case 200:
-          if (showLoading) {
-            EasyLoading.dismiss();
-          }
+    print(
+        "Api Request ${response.request.method} ${response.request.url.toString()} ${response.statusCode.toString()}");
 
-          return ResponsModel(
-            code: response.statusCode,
-            success: true,
-            data: response,
-          );
-          break;
+    showLoading ? EasyLoading.dismiss() : SizedBox.shrink();
 
-        default:
-          if (showLoading) {
-            EasyLoading.showError('Error');
-          }
-
-          Get.to(ErrorView(
-            api_url: url.toString(),
-            api_body: body.toString(),
-            api_header: header.toString(),
-            api_status_code: response.statusCode.toString(),
-          ));
-          return ResponsModel(
-            code: response.statusCode,
-            success: false,
-          );
-      }
-    } catch (e) {
-      if (showLoading) {
-        EasyLoading.showError('Error');
-      }
-
-      Get.to(ErrorView(
-        api_url: response.headers.toString(),
-        api_body: e.toString(),
-        api_header: '',
-        api_status_code: e.hashCode.toString(),
-      ));
-      return ResponsModel(
-        code: e.hashCode,
-        success: false,
-      );
-    }
+    return responseAnalyzes(response: response);
   }
 
   Future<ResponsModel> repGet(url, {bool showLoading = false}) async {
-    if (showLoading) {
-      EasyLoading.show(status: 'Loading ...');
-    }
+    url = baesUrl + url;
+    apiBody = '';
+    authorization();
 
-    print("Api Request " + baes_url + url);
-    login();
-    Response response;
-    if (GetUtils.isURL(url)) {
-      response = await get(url, headers: header);
-    } else {
-      response = await get(baes_url + url, headers: header);
-    }
+    showLoading ? EasyLoading.show(status: 'جارى التحميل') : SizedBox.shrink();
 
-    print("Api Request " +
-        baes_url +
-        url +
-        " Api Request:: " +
-        response.statusCode.toString());
+    print("Api Request Get " + url);
 
-    try {
-      switch (response.statusCode) {
-        case 200:
-          if (showLoading) {
-            EasyLoading.dismiss();
-          }
-          return ResponsModel(
-            code: response.statusCode,
-            success: true,
-            data: response,
-          );
-          break;
+    Response response = await get(
+      url,
+      headers: header,
+    );
 
-        default:
-          if (showLoading) {
-            EasyLoading.showError('Erro');
-          }
-          Get.to(
-            ErrorView(
-              api_url: url.toString(),
-              api_body: '',
-              api_header: header.toString(),
-              api_status_code: response.statusCode.toString(),
-            ),
-          );
-          return ResponsModel(
-            code: response.statusCode,
-            success: false,
-          );
-      }
-    } catch (e) {
-      if (showLoading) {
-        EasyLoading.showError('Erro');
-      }
-      Get.to(ErrorView(
-        api_url: response.headers.toString(),
-        api_body: e.toString(),
-        api_header: '',
-        api_status_code: e.hashCode.toString(),
-      ));
-      return ResponsModel(
-        code: e.hashCode,
-        success: false,
-      );
+    print(
+        "Api Request ${response.request.method} ${response.request.url.toString()} ${response.statusCode.toString()}");
+
+    showLoading ? EasyLoading.dismiss() : SizedBox.shrink();
+
+    return responseAnalyzes(response: response);
+  }
+
+  ResponsModel responseAnalyzes({Response response}) {
+    switch (response.statusCode) {
+      case 200:
+        return ResponsModel(
+          code: response.statusCode,
+          success: true,
+          data: response,
+        );
+        break;
+      case 401:
+        //Get.toNamed(Routes.SIGNIN);
+        return ResponsModel(
+          code: 401,
+          success: false,
+        );
+        break;
+      default:
+        Get.to(ErrorView(response: response));
+        return ResponsModel(
+          code: response.statusCode,
+          success: false,
+        );
     }
   }
 }
 
 class ErrorView extends GetView {
   ErrorView({
-    this.api_url,
-    this.api_header,
-    this.api_body,
-    this.api_status_code,
+    this.response,
   });
 
-  final String api_url;
-  final String api_header;
-  final String api_body;
-  final String api_status_code;
+  final Response response;
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {},
-      child: Scaffold(
-        body: ListView(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            //Lottie.asset('assets/error_api.json'),
-            ListTile(
-              title: Text('API Url'),
-              subtitle: Text(api_url),
-            ),
-            ListTile(
-              title: Text('API Header'),
-              subtitle: Text(api_header.toString()),
-            ),
-            ListTile(
-              title: Text('API Body'),
-              subtitle: Text(api_body.toString()),
-            ),
-            ListTile(
-              title: Text('API Status Code'),
-              subtitle: Text(api_status_code),
-            ),
-            TextButton(
-              onPressed: () {
-                Get.back();
-              },
-              child: Text(
-                'أعادة المحاولة',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+    return Scaffold(
+      body: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            children: [
+              ListTile(
+                title: Text('API Method Type'),
+                subtitle: Text(response.request.method),
               ),
-            )
-          ],
+              ListTile(
+                title: Text('API Url'),
+                subtitle: Text('${response.request.url.toString()}'),
+                trailing: IconButton(
+                    icon: Icon(Icons.copy),
+                    onPressed: () {
+                      Clipboard.setData(new ClipboardData(
+                          text: response.request.url.toString()));
+                    }),
+              ),
+              ListTile(
+                title: Text('API Body'),
+                subtitle: Text('Body'),
+                trailing: IconButton(
+                    icon: Icon(Icons.copy),
+                    onPressed: () {
+                      Clipboard.setData(new ClipboardData(
+                        text: apiBody.toString(),
+                      ));
+                    }),
+              ),
+              ListTile(
+                title: Text('Response'),
+                subtitle: Text('Response'),
+                trailing: IconButton(
+                    icon: Icon(Icons.copy),
+                    onPressed: () {
+                      Clipboard.setData(new ClipboardData(
+                        text: response.bodyString,
+                      ));
+                    }),
+              ),
+              ListTile(
+                title: Text('Tokan'),
+                subtitle: Text('Tokan'),
+                trailing: IconButton(
+                    icon: Icon(Icons.copy),
+                    onPressed: () {
+                      Clipboard.setData(new ClipboardData(
+                        text: KuserYoutubeTokan.toString(),
+                      ));
+                    }),
+              ),
+              ListTile(
+                title: Text('API Status Code'),
+                subtitle: Text(response.statusCode.toString()),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextButton(
+                    onPressed: () async {
+                      final Email email = Email(
+                        subject: '${AppName} Status Code ${response.statusCode.toString()} ',
+                        body : '<html> API Method Type <br> ${response.request.method} <br>	 API Url <br> ${response.request.url.toString()} <br>	  API Body <br> ${apiBody.toString()} <br> Tokan ${KuserYoutubeTokan.toString()} </html>',
+                        recipients: ['atpfreelancer@gmail.com'],
+                        isHTML: true,
+                      );
+
+                      await FlutterEmailSender.send(email);
+                    },
+                    child: Text(
+                      'Send Email',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: Text(
+                      'Try Again',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

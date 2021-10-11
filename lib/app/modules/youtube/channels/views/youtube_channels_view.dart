@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 
 import 'package:get/get.dart';
 import 'package:grow/app/component/CustomImageCached.dart';
@@ -18,7 +17,7 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Subscribe',
+          'Subscribe'.tr,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -39,12 +38,7 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                   (index) {
                     return InkWell(
                       onTap: () {
-/*
-                          Get.toNamed(
-                            Routes.YOUTUBE_CHANNEL_VEDIO,
-                            arguments: [ChannelsList.elementAt(index).channelId],
-                          );
-                          */
+
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -81,7 +75,7 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text('Subscribers'),
+                                          Text('Subscribers'.tr),
                                           Row(
                                             children: [
                                               Icon(Icons.video_call),
@@ -101,7 +95,7 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text('Videos'),
+                                          Text('Videos'.tr),
                                           Row(
                                             children: [
                                               Icon(Icons.play_arrow),
@@ -129,9 +123,9 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                                           : controller.setChannelSubscribe(
                                               ChannelsList.elementAt(index)
                                                   .channelId);
-                                      ;
+                                      
                                     },
-                                    child: Text('subscriptions'),
+                                    child: Text('subscriptions'.tr),
                                   ),
                                 ],
                               ),

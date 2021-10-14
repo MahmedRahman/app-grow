@@ -1,14 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_youtube_view/flutter_youtube_view.dart';
-
-import 'package:grow/app/data/app_constand.dart';
 import 'package:get/get.dart';
+import 'package:grow/app/data/app_constand.dart';
 import 'package:grow/app/modules/youtubeview/controllers/youtubeview_controller.dart';
-import 'package:simple_timer/simple_timer.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-
 import 'package:pausable_timer/pausable_timer.dart';
 
 //import 'package:webview_flutter/webview_flutter.dart';
@@ -24,9 +18,12 @@ class VedioView extends StatefulWidget {
   _VedioViewState createState() => _VedioViewState();
 }
 
-class _VedioViewState extends State<VedioView> {
+class _VedioViewState extends State<VedioView>
+    implements YouTubePlayerListener {
   var time = '0'.obs;
   var flg = true.obs;
+
+  bool isReady = false;
 
   YoutubeviewController controller = Get.put(YoutubeviewController());
   FlutterYoutubeViewController YoutubeViewController;
@@ -34,8 +31,6 @@ class _VedioViewState extends State<VedioView> {
   PausableTimer timer;
 
   void startTimer() {
-
-
     timer = PausableTimer(
       Duration(seconds: 1),
       () {
@@ -72,6 +67,12 @@ Timer _timer;
       },
     );*/
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   YoutubeViewController.handleEvent(call)
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +136,7 @@ Timer _timer;
                     startSeconds: 0.0,
                     autoPlay: false,
                   ),
-                  listener: listener,
+                  listener: this,
                 ),
               ),
             ),
@@ -157,11 +158,13 @@ Timer _timer;
                       style:
                           ElevatedButton.styleFrom(primary: Colors.transparent),
                       onPressed: () {
-                        startTimer();
-                        timer.start();
-                        // _timer.reactive;
+                        if (isReady) {
+                          startTimer();
+                          timer.start();
+                          // _timer.reactive;
 
-                        YoutubeViewController.play();
+                          YoutubeViewController.play();
+                        }
                       },
                       child: Text('Play'),
                     ),
@@ -197,5 +200,34 @@ Timer _timer;
   @override
   void dispose() {
     super.dispose();
+  }
+
+  @override
+  void onCurrentSecond(double second) {
+    // TODO: implement onCurrentSecond
+  }
+
+  @override
+  void onError(String error) {
+    // TODO: implement onError
+  }
+
+  @override
+  void onReady() {
+    print('onReady');
+    // TODO: implement onReady
+    setState(() {
+      isReady = true;
+    });
+  }
+
+  @override
+  void onStateChange(String state) {
+    // TODO: implement onStateChange
+  }
+
+  @override
+  void onVideoDuration(double duration) {
+    // TODO: implement onVideoDuration
   }
 }

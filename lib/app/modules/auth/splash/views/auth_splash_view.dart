@@ -1,20 +1,17 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:get/get.dart';
-import 'package:grow/app/api/response_model.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grow/app/api/web_serives.dart';
 import 'package:grow/app/data/app_constand.dart';
 import 'package:grow/app/routes/app_pages.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import '../controllers/auth_splash_controller.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:grow/app/data/app_constand.dart';
 
 class AuthSplashView extends GetView<AuthSplashController> {
-  final googleSignIn = GoogleSignIn();
+  final googleSignIn =
+      GoogleSignIn(scopes: ['https://www.googleapis.com/auth/youtube']);
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +44,9 @@ class AuthSplashView extends GetView<AuthSplashController> {
                           )
                               .then((value) {
                             Response response = value.data;
-                            KuserYoutubeTokan =
-                                response.body['data']['access_token'];
+                            KuserTokan = response.body['data']['access_token'];
 
-                            print(KuserYoutubeTokan);
+                            print('User Token: $KuserTokan');
 
                             EasyLoading.dismiss();
                             Get.offAllNamed(Routes.LAYOUT);
@@ -85,11 +81,11 @@ class AuthSplashView extends GetView<AuthSplashController> {
   }
 
   Future<UserCredential> signInWithGoogle() async {
-    googleSignIn.requestScopes(
-      [
-        'https://www.googleapis.com/auth/youtube',
-      ],
-    );
+    // googleSignIn.requestScopes(
+    //   [
+    //     'https://www.googleapis.com/auth/youtube',
+    //   ],
+    // );
 
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await googleSignIn.signIn();
@@ -104,10 +100,11 @@ class AuthSplashView extends GetView<AuthSplashController> {
       idToken: googleAuth.idToken,
     );
 
-    //print('accessToken : ${googleAuth.accessToken}');
-    //print('idToken : ${googleAuth.idToken}');
+    print('accessToken : ${googleAuth.accessToken}');
+    print('idToken : ${googleAuth.idToken}');
 
-    KuserTokan = googleAuth.accessToken;
+    // KuserTokan = googleAuth.accessToken;
+    KuserYoutubeTokan = googleAuth.accessToken;
 
     //print('Googel Tokan');
     //print(googleAuth.accessToken);

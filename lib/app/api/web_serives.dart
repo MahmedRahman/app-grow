@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:grow/app/api/api_manger.dart';
 import 'package:grow/app/api/response_model.dart';
 import 'package:grow/app/data/app_constand.dart';
@@ -11,7 +10,7 @@ class WebServices extends APIManger {
     String avatar,
   }) async {
     ResponsModel response = await repPost('google_login', body: {
-      'refresh_token': KuserTokan,
+      'refresh_token': KuserYoutubeTokan,
       'name': name,
       'email': email,
       'avatar': avatar
@@ -33,7 +32,6 @@ class WebServices extends APIManger {
     ResponsModel response = await repGet('category/$id');
     return response;
   }
-
 
   Future<ResponsModel> getChannelsVideoList() async {
     ResponsModel response = await repPost('channel_info');
@@ -102,31 +100,31 @@ class WebServices extends APIManger {
     return response;
   }
 
-  Future<ResponsModel> setRegisterVideo({String videoID, String category}) async {
+  Future<ResponsModel> setRegisterVideo(
+      {String videoID, String category}) async {
     ResponsModel response = await repPost(
       'register_video',
       body: {
         'video': videoID,
-         'category': category,
+        'category': category,
       },
       showLoading: true,
     );
     return response;
   }
 
-  Future<ResponsModel> setUnRegisterVideo({String videoID , String category}) async {
+  Future<ResponsModel> setUnRegisterVideo(
+      {String videoID, String category}) async {
     ResponsModel response = await repPost(
       'unregister_video',
       body: {
         'video': videoID,
-          'category': category,
+        'category': category,
       },
       showLoading: true,
     );
     return response;
   }
-
-
 
   Future<ResponsModel> getSubCategories({@required sub_categories}) async {
     ResponsModel response = await repGet(

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:grow/app/component/CustomImageCached.dart';
 import 'package:grow/app/data/app_constand.dart';
 import 'package:grow/app/modules/youtube/channels/model/Chanel_list.dart';
-import 'package:grow/app/routes/app_pages.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../controllers/youtube_channels_controller.dart';
 
@@ -36,10 +33,9 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                 children: List.generate(
                   ChannelsList.length,
                   (index) {
+                    print(ChannelsList[index].subscribtionStatus);
                     return InkWell(
-                      onTap: () {
-
-                      },
+                      onTap: () {},
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Card(
@@ -123,7 +119,6 @@ class YoutubeChannelsView extends GetView<YoutubeChannelsController> {
                                           : controller.setChannelSubscribe(
                                               ChannelsList.elementAt(index)
                                                   .channelId);
-                                      
                                     },
                                     child: Text('subscriptions'.tr),
                                   ),

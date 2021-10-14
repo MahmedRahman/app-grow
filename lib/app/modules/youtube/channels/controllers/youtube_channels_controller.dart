@@ -3,8 +3,6 @@ import 'package:grow/app/api/response_model.dart';
 import 'package:grow/app/api/web_serives.dart';
 import 'package:grow/app/data/app_constand.dart';
 import 'package:grow/app/modules/youtube/channels/model/Chanel_list.dart';
-import 'package:grow/app/modules/youtube/channels/model/youtube_channels_model.dart';
-import 'package:grow/app/modules/youtube/channels/views/youtube_channels_view.dart';
 
 class YoutubeChannelsController extends GetxController {
   //TODO: Implement YoutubeChannelsController
@@ -25,8 +23,9 @@ class YoutubeChannelsController extends GetxController {
       print(response.bodyString);
 
       if (response.body['success']) {
-       final channelsListModel = channelsListModelFromJson(response.bodyString);
-       
+        final channelsListModel =
+            channelsListModelFromJson(response.bodyString);
+
         youtubeChannelsList.value = Future.value(channelsListModel.data);
       } else {
         print(response.bodyString);
@@ -37,6 +36,7 @@ class YoutubeChannelsController extends GetxController {
   setChannelSubscribe(String channelId) async {
     ResponsModel responsModel =
         await WebServices().setChannelSubscribe(channelId);
+    print('Subscribe Response: ${responsModel.data.body}');
     if (responsModel.success) {
       Response response = responsModel.data;
       if (response.body['success']) {
@@ -50,6 +50,7 @@ class YoutubeChannelsController extends GetxController {
           },
         );
       } else {
+        print('Error: ${response.body}');
         Get.snackbar('Grow App', 'You Already Subscribed To This Channel',
             backgroundColor: KprimaryColor);
       }

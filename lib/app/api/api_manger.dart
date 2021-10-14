@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/connect.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:grow/app/api/response_model.dart';
 import 'package:grow/app/data/app_constand.dart';
 
@@ -23,7 +21,7 @@ final header = {
 
 class APIManger extends GetConnect {
   authorization() {
-    String tokan = KuserYoutubeTokan;
+    String tokan = KuserTokan;
 
     if (tokan != null) {
       header.update(
@@ -83,6 +81,7 @@ class APIManger extends GetConnect {
   }
 
   ResponsModel responseAnalyzes({Response response}) {
+    print('Response: ${response.body}');
     switch (response.statusCode) {
       case 200:
         return ResponsModel(
@@ -167,7 +166,7 @@ class ErrorView extends GetView {
                     icon: Icon(Icons.copy),
                     onPressed: () {
                       Clipboard.setData(new ClipboardData(
-                        text: KuserYoutubeTokan.toString(),
+                        text: KuserTokan.toString(),
                       ));
                     }),
               ),
@@ -181,8 +180,10 @@ class ErrorView extends GetView {
                   TextButton(
                     onPressed: () async {
                       final Email email = Email(
-                        subject: '${AppName} Status Code ${response.statusCode.toString()} ',
-                        body : '<html> API Method Type <br> ${response.request.method} <br>	 API Url <br> ${response.request.url.toString()} <br>	  API Body <br> ${apiBody.toString()} <br> Tokan ${KuserYoutubeTokan.toString()} </html>',
+                        subject:
+                            '${AppName} Status Code ${response.statusCode.toString()} ',
+                        body:
+                            '<html> API Method Type <br> ${response.request.method} <br>	 API Url <br> ${response.request.url.toString()} <br>	  API Body <br> ${apiBody.toString()} <br> Tokan ${KuserTokan.toString()} </html>',
                         recipients: ['atpfreelancer@gmail.com'],
                         isHTML: true,
                       );
